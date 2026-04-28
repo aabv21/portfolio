@@ -17,7 +17,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="section-bg relative min-h-screen flex items-center justify-center overflow-hidden pt-[62px]"
+      className="section-bg relative min-h-screen flex items-center justify-center overflow-hidden pt-[calc(62px+env(safe-area-inset-top))]"
     >
       <div className="geo-shape absolute top-[15%] right-[10%] w-24 h-24 opacity-[0.08] animate-float" style={{ animationDelay: '0s' }} />
       <div className="geo-shape absolute bottom-[20%] left-[8%] w-16 h-16 opacity-[0.06] animate-float" style={{ animationDelay: '2s' }} />
@@ -57,7 +57,7 @@ export function Hero() {
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
-            <span className={cn('text-[0.85rem] flex-1 text-left min-h-[1.25rem]', isDark ? 'text-slate-300' : 'text-slate-600')}>
+            <span aria-hidden="true" className={cn('text-[0.85rem] flex-1 text-left min-h-[1.25rem]', isDark ? 'text-slate-300' : 'text-slate-600')}>
               {typewriterText}
               <span className="inline-block w-0.5 h-[0.9em] bg-emerald ml-0.5 animate-pulse align-middle" />
             </span>

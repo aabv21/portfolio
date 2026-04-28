@@ -24,12 +24,14 @@ interface GithubProfile {
 export async function getGithubProfile(): Promise<string> {
   if (cache && Date.now() - cache.at < TTL) return cache.data
 
-  const headers = { 'User-Agent': 'andres-buelvas-portfolio' }
+  const token = process.env.GITHUB_TOKEN
+  const headers: Record<string, string> = { 'User-Agent': 'andres-buelvas-portfolio' }
+  if (token) headers['Authorization'] = `Bearer ${token}`
 
-  const signal = AbortSignal.timeout(5000)
+  try {
   const [profileRes, reposRes] = await Promise.all([
-    fetch(`https://api.github.com/users/${GITHUB_USER}`, { headers, signal }),
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10&type=public`, { headers, signal }),
+    fetch(`https://api.github.com/users/${GITHUB_USER}`, { headers, signal: AbortSignal.timeout(5000) }),
+    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10&type=public`, { headers, signal: AbortSignal.timeout(5000) }),
   ])
 
   if (!profileRes.ok || !reposRes.ok) throw new Error('GitHub API error')
@@ -60,4 +62,7 @@ export async function getGithubProfile(): Promise<string> {
 
   cache = { data: JSON.stringify(safe, null, 2), at: Date.now() }
   return cache.data
+  } catch {
+    return 'GitHub profile temporarily unavailable.'
+  }
 }

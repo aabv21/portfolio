@@ -75,7 +75,7 @@ export function Footer() {
     : 'https://www.linkedin.com/in/aabv211996/'
   const hoverText = 'hover:text-emerald'
   const emailIcon = useCopyToClipboard('andres.buelvas.2102@gmail.com')
-  const email = useCopyToClipboard('andres.buelvas.2102@gmail.com')
+  const emailText = useCopyToClipboard('andres.buelvas.2102@gmail.com')
   const linkedin = useCopyToClipboard('linkedin.com/in/andres-buelvas')
 
   return (
@@ -164,7 +164,7 @@ export function Footer() {
               <h4 className="section-label mb-4">{t.footer.contact}</h4>
               <div className="flex flex-col gap-2.5">
                 <button
-                  onClick={email.copy}
+                  onClick={emailText.copy}
                   className={cn("flex items-center gap-2 text-[0.8rem] text-slate-500 transition-colors min-w-0 text-left relative", hoverText)}
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
@@ -172,7 +172,7 @@ export function Footer() {
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                   </svg>
                   <span className="truncate md:break-all min-w-0">andres.buelvas.2102@gmail.com</span>
-                  {email.copied && (
+                  {emailText.copied && (
                     <span className={cn(
                       'absolute -top-7 left-0 px-2.5 py-1 rounded-md text-[0.7rem] font-semibold whitespace-nowrap pointer-events-none animate-in fade-in duration-150',
                       isDark ? 'bg-slate-800 text-emerald border border-emerald-border shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-white text-emerald border border-emerald-border shadow-md'

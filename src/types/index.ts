@@ -46,15 +46,3 @@ export interface Project {
   role?: { en: string; es: string }
   period?: string
 }
-
-export interface NavLink {
-  label: string
-  href: string
-  isPage: boolean // true = router link, false = hash anchor
-}
-
-export interface SideNavItem {
-  label: string
-  href: string
-  sectionId: string
-}

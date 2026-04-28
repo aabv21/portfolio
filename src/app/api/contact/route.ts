@@ -30,9 +30,10 @@ const schema = z.object({
   message: z.string().min(10).max(5000),
 })
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(req: NextRequest) {
+  const resendApiKey = process.env.RESEND_API_KEY
+  if (!resendApiKey) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
+  const resend = new Resend(resendApiKey)
   const ip =
     req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??

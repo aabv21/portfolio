@@ -34,8 +34,9 @@ export function Navbar({ onChatOpen }: NavbarProps) {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 h-[62px] flex items-center justify-between px-6 lg:px-8',
+        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-8',
         'backdrop-blur-xl border-b transition-all duration-300',
+        'h-[calc(62px+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)]',
         isDark ? 'bg-[rgba(10,22,40,0.75)]' : 'bg-[rgba(248,250,252,0.9)]',
         scrolled
           ? 'border-emerald-border shadow-[0_4px_32px_rgba(0,0,0,0.5)]'
@@ -60,6 +61,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
             <Link
               key={href}
               href={href}
+              aria-current={active ? 'page' : undefined}
               className={cn(
                 'text-[0.82rem] font-medium px-3 py-1.5 rounded-lg border transition-all duration-200 relative',
                 active
@@ -102,7 +104,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
           className="hidden lg:flex w-[34px] h-[34px] items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all"
           aria-label="Toggle theme"
         >
-          {isDark ? '🌙' : '☀️'}
+          <span aria-hidden="true">{isDark ? '🌙' : '☀️'}</span>
         </button>
 
         {/* AI Chat button */}
@@ -141,8 +143,9 @@ export function Navbar({ onChatOpen }: NavbarProps) {
                 <SheetClose asChild key={href}>
                   <Link
                     href={href}
+                    aria-current={pathname === href ? 'page' : undefined}
                     className={cn(
-                      'text-[0.95rem] px-4 py-3 rounded-lg transition-all block font-medium',
+                      'text-[0.82rem] px-4 py-3 rounded-lg transition-all block font-medium',
                       pathname === href
                         ? 'text-emerald bg-emerald-subtle'
                         : isDark
@@ -191,7 +194,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
                       : 'bg-black/5 border-black/10 text-slate-500 hover:text-slate-900 hover:bg-black/10',
                   )}
                 >
-                  {isDark ? '🌙' : '☀️'}
+                  <span aria-hidden="true">{isDark ? '🌙' : '☀️'}</span>
                 </button>
               </div>
 

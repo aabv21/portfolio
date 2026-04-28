@@ -1,3 +1,7 @@
+// NOTE: This rate limiter is in-memory and per-process.
+// On Vercel, each serverless function instance has its own counter — limits are not shared across instances.
+// For global rate limiting at scale, replace with Upstash Redis or Vercel KV.
+
 interface Entry {
   count: number
   resetAt: number

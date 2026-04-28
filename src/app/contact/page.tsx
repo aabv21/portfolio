@@ -62,19 +62,19 @@ function inputCls(isDark: boolean, error?: string) {
   )
 }
 
+const fieldSchemas: Record<keyof ContactForm, z.ZodString> = {
+  name: z.string().min(2),
+  email: z.string().email(),
+  subject: z.string().min(2),
+  message: z.string().min(10),
+}
+
 export default function ContactPage() {
   const { t, lang } = useLang()
   const { isDark } = useTheme()
   const [form, setForm] = useState<ContactForm>({ name: '', email: '', subject: '', message: '' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'rate_limit'>('idle')
-
-  const fieldSchemas: Record<keyof ContactForm, z.ZodString> = {
-    name: z.string().min(2),
-    email: z.string().email(),
-    subject: z.string().min(2),
-    message: z.string().min(10),
-  }
 
   function validateField(field: keyof ContactForm, value: string): ErrorKey | undefined {
     const result = fieldSchemas[field].safeParse(value)
@@ -125,7 +125,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="section-bg min-h-screen relative overflow-hidden pt-[62px] flex flex-col">
+    <div className="section-bg min-h-screen relative overflow-hidden pt-[calc(62px+env(safe-area-inset-top))] flex flex-col">
       <div className="geo-shape absolute top-[8%] left-[5%] w-28 h-28 opacity-[0.06] animate-float" style={{ animationDelay: '1s' }} />
       <div className="geo-shape absolute bottom-[15%] right-[4%] w-20 h-20 opacity-[0.05] animate-float" />
       <div className="pulse-node absolute top-[40%] right-[12%]" />
@@ -201,7 +201,10 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
                   <div className="flex flex-col gap-1">
+                    <label htmlFor="contact-name" className="sr-only">{t.contact.namePlaceholder}</label>
                     <input
+                      id="contact-name"
+                      autoComplete="name"
                       value={form.name}
                       onChange={(e) => handleChange('name', e.target.value)}
                       placeholder={t.contact.namePlaceholder}
@@ -211,8 +214,11 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-1">
+                    <label htmlFor="contact-email" className="sr-only">{t.contact.emailPlaceholder}</label>
                     <input
+                      id="contact-email"
                       type="email"
+                      autoComplete="email"
                       value={form.email}
                       onChange={(e) => handleChange('email', e.target.value)}
                       placeholder={t.contact.emailPlaceholder}
@@ -222,7 +228,10 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-1">
+                    <label htmlFor="contact-subject" className="sr-only">{t.contact.subjectPlaceholder}</label>
                     <input
+                      id="contact-subject"
+                      autoComplete="off"
                       value={form.subject}
                       onChange={(e) => handleChange('subject', e.target.value)}
                       placeholder={t.contact.subjectPlaceholder}
@@ -232,7 +241,10 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-1">
+                    <label htmlFor="contact-message" className="sr-only">{t.contact.messagePlaceholder}</label>
                     <textarea
+                      id="contact-message"
+                      autoComplete="off"
                       value={form.message}
                       onChange={(e) => handleChange('message', e.target.value)}
                       placeholder={t.contact.messagePlaceholder}

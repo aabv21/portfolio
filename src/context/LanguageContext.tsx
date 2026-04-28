@@ -36,7 +36,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const toggleLang = useCallback(() => {
     setLang((prev) => {
       const next: Lang = prev === 'es' ? 'en' : 'es'
-      document.cookie = `lang=${next};path=/;max-age=31536000;SameSite=Lax`
+      document.cookie = `lang=${next};path=/;max-age=31536000;SameSite=Lax;Secure`
       document.documentElement.lang = next
       return next
     })
