@@ -49,7 +49,7 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
     >
       <div
         className={cn(
-          'relative w-full max-w-2xl max-h-[78vh] flex flex-col rounded-2xl shadow-2xl animate-in zoom-in-95 fade-in duration-200',
+          'relative w-full max-w-2xl max-h-[90dvh] md:max-h-[78vh] flex flex-col rounded-2xl shadow-2xl animate-in zoom-in-95 fade-in duration-200',
           isDark
             ? 'bg-[#0f1b2d] border border-[rgba(16,185,129,0.4)]'
             : 'bg-white border border-[rgba(16,185,129,0.4)]',
@@ -58,37 +58,23 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
       >
         {/* ── Header ── */}
         <div className={cn(
-          'relative flex items-center gap-4 p-6 pr-14 border-b',
+          'flex items-center gap-3 px-4 py-3 border-b flex-shrink-0',
           isDark ? 'border-white/[0.06]' : 'border-black/[0.06]',
         )}>
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-emerald-subtle border border-emerald-border flex-shrink-0">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg bg-emerald-subtle border border-emerald-border flex-shrink-0">
             {entry.icon}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className={cn('text-[1.1rem] font-extrabold leading-tight', isDark ? 'text-white' : 'text-slate-900')}>
+            <h2 className={cn('text-[0.95rem] font-extrabold leading-tight truncate', isDark ? 'text-white' : 'text-slate-900')}>
               {entry.company}
             </h2>
-            <p className="text-[0.72rem] text-emerald font-semibold mt-0.5">{formatPeriod(entry.totalPeriod, lang)}</p>
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {entry.tags.map((tag) => {
-                const Icon = (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null) ?? DefaultTagIcon
-                return (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.65rem] bg-emerald-subtle border border-emerald-border text-emerald"
-                  >
-                    <Icon size={8} className="text-emerald" />
-                    {tag}
-                  </span>
-                )
-              })}
-            </div>
+            <p className="text-[0.68rem] text-emerald font-semibold">{formatPeriod(entry.totalPeriod, lang)}</p>
           </div>
           <button
             onClick={onClose}
             aria-label={t.experience.close}
             className={cn(
-              'absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center transition-colors',
+              'flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors',
               isDark
                 ? 'bg-black/20 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
                 : 'bg-black/5 border border-black/10 text-slate-500 hover:bg-black/10 hover:text-slate-900',
@@ -100,70 +86,65 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
           </button>
         </div>
 
+        {/* ── Tags (horizontal scroll, single line) ── */}
+        <div className={cn(
+          'flex gap-1.5 px-4 py-2 border-b overflow-x-auto flex-shrink-0 scrollbar-none',
+          isDark ? 'border-white/[0.06]' : 'border-black/[0.06]',
+        )}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {entry.tags.map((tag) => {
+            const Icon = (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null) ?? DefaultTagIcon
+            return (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.65rem] bg-emerald-subtle border border-emerald-border text-emerald whitespace-nowrap flex-shrink-0"
+              >
+                <Icon size={8} className="text-emerald" />
+                {tag}
+              </span>
+            )
+          })}
+        </div>
+
         {/* ── Scrollable body ── */}
         <div className="flex-1 overflow-y-auto">
 
-        {/* ── Timeline ── */}
-        <div className="p-6 flex flex-col gap-0">
+        {/* ── Roles ── */}
+        <div className="flex flex-col divide-y divide-white/[0.04]">
           {entry.roles.map((role, i) => {
             const isLatest = i === 0
             return (
-              <div key={i} className="flex gap-4 relative">
-                {/* connector line */}
-                {i < entry.roles.length - 1 && (
-                  <div className="absolute left-[15px] top-[24px] bottom-0 w-px bg-emerald/20" />
-                )}
-
-                {/* dot */}
-                <div className="flex-shrink-0 mt-1">
-                  <div className={cn(
-                    'w-8 h-8 rounded-full flex items-center justify-center border',
-                    isLatest
-                      ? 'bg-emerald-subtle border-emerald-border'
-                      : isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10',
-                  )}>
-                    <div className={cn(
-                      'w-2.5 h-2.5 rounded-full',
-                      isLatest ? 'bg-emerald' : isDark ? 'bg-slate-600' : 'bg-slate-300',
-                    )} />
-                  </div>
-                </div>
-
-                {/* content */}
-                <div className={cn('flex-1 pb-8', i === entry.roles.length - 1 && 'pb-2')}>
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className={cn(
-                      'text-[0.88rem] font-bold leading-tight',
-                      isLatest
-                        ? isDark ? 'text-white' : 'text-slate-900'
-                        : isDark ? 'text-slate-300' : 'text-slate-600',
-                    )}>
-                      {role.title[lang]}
-                    </h3>
-                    <span className={cn(
-                      'text-[0.62rem] font-semibold whitespace-nowrap',
-                      isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
-                    )}>
-                      {formatPeriod(role.period, lang)}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col gap-1.5 mt-2">
-                    {role.responsibilities.map((r, j) => (
-                      <div
-                        key={j}
-                        className={cn(
-                          'text-[0.76rem] px-3 py-1.5 rounded-r-md border-l-2 leading-relaxed',
-                          isLatest
-                            ? 'border-emerald/40 bg-emerald/[0.04]'
-                            : isDark ? 'border-white/10 bg-white/[0.02]' : 'border-black/10 bg-black/[0.02]',
-                          isDark ? 'text-slate-400' : 'text-slate-500',
-                        )}
-                      >
-                        {r[lang]}
-                      </div>
-                    ))}
-                  </div>
+              <div key={i} className="px-4 py-4">
+                <h3 className={cn(
+                  'text-[0.88rem] font-bold leading-snug mb-1',
+                  isLatest
+                    ? isDark ? 'text-white' : 'text-slate-900'
+                    : isDark ? 'text-slate-300' : 'text-slate-600',
+                )}>
+                  {role.title[lang]}
+                </h3>
+                <p className={cn(
+                  'text-[0.72rem] font-semibold mb-3',
+                  isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
+                )}>
+                  {formatPeriod(role.period, lang)}
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  {role.responsibilities.map((r, j) => (
+                    <p
+                      key={j}
+                      className={cn(
+                        'text-[0.76rem] leading-relaxed px-3 py-1.5 border-l-2 rounded-r-md',
+                        isLatest
+                          ? 'border-emerald/40 bg-emerald/[0.04]'
+                          : isDark ? 'border-white/10 bg-white/[0.02]' : 'border-black/10 bg-black/[0.02]',
+                        isDark ? 'text-slate-400' : 'text-slate-500',
+                      )}
+                    >
+                      {r[lang]}
+                    </p>
+                  ))}
                 </div>
               </div>
             )

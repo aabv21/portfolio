@@ -43,7 +43,7 @@ export const en: Translations = {
     sectionLabel: 'My journey',
     sectionTitle: 'Experience',
     pausedLabel: 'Paused',
-    viewDetails: 'View details',
+    viewDetails: 'View full details',
     viewAll: 'View all experience',
     responsibilities: 'Responsibilities',
     close: 'Close',

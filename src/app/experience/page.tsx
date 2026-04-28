@@ -119,33 +119,37 @@ function CompanyRow({
         {entry.roles.map((role, i) => {
           const isLatest = i === 0
           return (
-            <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-6 px-5 py-4">
+            <div key={i} className="px-5 py-3">
               {/* Role title + period */}
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <span className="inline-flex items-center gap-2 min-w-0">
-                    <span className={cn(
-                      'w-2 h-2 rounded-full flex-shrink-0 translate-y-px',
-                      isLatest ? 'bg-emerald' : isDark ? 'bg-slate-600' : 'bg-slate-300',
-                    )} />
-                    <span className={cn(
-                      'text-[0.82rem] font-semibold',
-                      isLatest
-                        ? isDark ? 'text-white' : 'text-slate-900'
-                        : isDark ? 'text-slate-300' : 'text-slate-600',
-                    )}>
-                      {role.title[lang]}
-                    </span>
-                  </span>
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1.5">
+                <span className="inline-flex items-center gap-2 min-w-0">
                   <span className={cn(
-                    'text-[0.68rem] font-medium',
-                    isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
+                    'w-2 h-2 rounded-full flex-shrink-0 translate-y-px',
+                    isLatest ? 'bg-emerald' : isDark ? 'bg-slate-600' : 'bg-slate-300',
+                  )} />
+                  <span className={cn(
+                    'text-[0.82rem] font-semibold',
+                    isLatest
+                      ? isDark ? 'text-white' : 'text-slate-900'
+                      : isDark ? 'text-slate-300' : 'text-slate-600',
                   )}>
-                    {formatPeriod(role.period, lang)}
+                    {role.title[lang]}
                   </span>
-                </div>
+                </span>
+                <span className={cn(
+                  'text-[0.68rem] font-medium',
+                  isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
+                )}>
+                  {formatPeriod(role.period, lang)}
+                </span>
               </div>
-
+              {/* Responsibility highlights — first 2, joined by · */}
+              <p className={cn(
+                'text-[0.72rem] leading-relaxed pl-4',
+                isDark ? 'text-slate-500' : 'text-slate-400',
+              )}>
+                {role.responsibilities.slice(0, 2).map((r) => r[lang]).join(' · ')}
+              </p>
             </div>
           )
         })}
