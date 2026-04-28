@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Claude Code local memory
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
+
+# pnpm
+.pnpm-debug.log*
+
+# Superpowers AI-generated specs and plans
+.superpowers/
+docs/superpowers/
+
+# Worktrees
+.worktrees/
+
+# npm lock file (project uses pnpm)
+package-lock.json
