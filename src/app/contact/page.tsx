@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { z } from 'zod'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
@@ -11,12 +11,41 @@ type ContactForm = { name: string; email: string; subject: string; message: stri
 type ErrorKey = 'errMin2' | 'errEmail' | 'errMin10'
 type FormErrors = Partial<Record<keyof ContactForm, ErrorKey>>
 
-function InfoRow({ icon, value, href }: { icon: React.ReactNode; value: string; href?: string }) {
-  const cls = 'flex items-center gap-3 text-[0.9rem] text-slate-500 hover:text-emerald transition-colors'
-  return href ? (
-    <a href={href} className={cls}>{icon}{value}</a>
-  ) : (
-    <span className={cn(cls, 'cursor-default')}>{icon}{value}</span>
+function useCopyToClipboard(text: string) {
+  const [copied, setCopied] = useState(false)
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }, [text])
+  return { copied, copy }
+}
+
+function CopyRow({ icon, value, isDark, lang }: { icon: React.ReactNode; value: string; isDark: boolean; lang: string }) {
+  const { copied, copy } = useCopyToClipboard(value)
+  return (
+    <button
+      onClick={copy}
+      className="flex items-center gap-3 text-[0.9rem] text-slate-500 hover:text-emerald transition-colors relative text-left"
+    >
+      {icon}
+      <span>{value}</span>
+      {copied && (
+        <span className={cn(
+          'absolute -top-7 left-8 px-2.5 py-1 rounded-md text-[0.7rem] font-semibold whitespace-nowrap pointer-events-none animate-in fade-in duration-150',
+          isDark ? 'bg-slate-800 text-emerald border border-emerald-border shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-white text-emerald border border-emerald-border shadow-md'
+        )}>
+          {lang === 'es' ? '¡Copiado!' : 'Copied!'}
+        </span>
+      )}
+    </button>
+  )
+}
+
+function InfoRow({ icon, value }: { icon: React.ReactNode; value: string }) {
+  return (
+    <span className="flex items-center gap-3 text-[0.9rem] text-slate-500 cursor-default">{icon}{value}</span>
   )
 }
 
@@ -34,32 +63,43 @@ function inputCls(isDark: boolean, error?: string) {
 }
 
 export default function ContactPage() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const { isDark } = useTheme()
   const [form, setForm] = useState<ContactForm>({ name: '', email: '', subject: '', message: '' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'rate_limit'>('idle')
 
+  const fieldSchemas: Record<keyof ContactForm, z.ZodString> = {
+    name: z.string().min(2),
+    email: z.string().email(),
+    subject: z.string().min(2),
+    message: z.string().min(10),
+  }
+
+  function validateField(field: keyof ContactForm, value: string): ErrorKey | undefined {
+    const result = fieldSchemas[field].safeParse(value)
+    if (result.success) return undefined
+    const issue = result.error.issues[0]
+    if (issue.code === 'too_small') return issue.minimum === 10 ? 'errMin10' : 'errMin2'
+    return 'errEmail'
+  }
+
+  function handleChange(field: keyof ContactForm, value: string) {
+    setForm((f) => ({ ...f, [field]: value }))
+    if (errors[field]) {
+      const err = validateField(field, value)
+      setErrors((e) => ({ ...e, [field]: err }))
+    }
+  }
+
   function validate(): boolean {
-    const schema = z.object({
-      name: z.string().min(2),
-      email: z.string().email(),
-      subject: z.string().min(2),
-      message: z.string().min(10),
-    })
-    const result = schema.safeParse(form)
-    if (result.success) { setErrors({}); return true }
     const fieldErrors: FormErrors = {}
-    result.error.issues.forEach((issue) => {
-      const field = issue.path[0] as keyof ContactForm
-      if (issue.code === 'too_small') {
-        fieldErrors[field] = issue.minimum === 10 ? 'errMin10' : 'errMin2'
-      } else {
-        fieldErrors[field] = 'errEmail'
-      }
-    })
+    for (const field of Object.keys(fieldSchemas) as (keyof ContactForm)[]) {
+      const err = validateField(field, form[field])
+      if (err) fieldErrors[field] = err
+    }
     setErrors(fieldErrors)
-    return false
+    return Object.keys(fieldErrors).length === 0
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -105,11 +145,12 @@ export default function ContactPage() {
               </p>
 
               <div className="flex flex-col gap-5">
-                <InfoRow
-                  href="mailto:andres.buelvas.2102@gmail.com"
+                <CopyRow
                   value="andres.buelvas.2102@gmail.com"
+                  isDark={isDark}
+                  lang={lang}
                   icon={
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </svg>
@@ -118,17 +159,18 @@ export default function ContactPage() {
                 <InfoRow
                   value={t.contact.locationValue}
                   icon={
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                       <circle cx="12" cy="10" r="3" />
                     </svg>
                   }
                 />
-                <InfoRow
-                  href="https://linkedin.com/in/andres-buelvas"
+                <CopyRow
                   value="linkedin.com/in/andres-buelvas"
+                  isDark={isDark}
+                  lang={lang}
                   icon={
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#10B981">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#10B981" className="flex-shrink-0">
                       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                     </svg>
                   }
@@ -161,7 +203,7 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-1">
                     <input
                       value={form.name}
-                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      onChange={(e) => handleChange('name', e.target.value)}
                       placeholder={t.contact.namePlaceholder}
                       className={inputCls(isDark, errors.name)}
                     />
@@ -172,7 +214,7 @@ export default function ContactPage() {
                     <input
                       type="email"
                       value={form.email}
-                      onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                      onChange={(e) => handleChange('email', e.target.value)}
                       placeholder={t.contact.emailPlaceholder}
                       className={inputCls(isDark, errors.email)}
                     />
@@ -182,7 +224,7 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-1">
                     <input
                       value={form.subject}
-                      onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
+                      onChange={(e) => handleChange('subject', e.target.value)}
                       placeholder={t.contact.subjectPlaceholder}
                       className={inputCls(isDark, errors.subject)}
                     />
@@ -192,7 +234,7 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-1">
                     <textarea
                       value={form.message}
-                      onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                      onChange={(e) => handleChange('message', e.target.value)}
                       placeholder={t.contact.messagePlaceholder}
                       rows={5}
                       className={inputCls(isDark, errors.message)}

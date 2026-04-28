@@ -11,6 +11,34 @@ interface Message {
   isGreeting?: boolean
 }
 
+function MarkdownText({ text }: { text: string }) {
+  const lines = text.split('\n')
+  return (
+    <>
+      {lines.map((line, i) => {
+        const trimmed = line.trimStart()
+        const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ')
+        const content = isBullet ? trimmed.slice(2) : line
+
+        const parts = content.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
+        const rendered = parts.map((part, j) => {
+          if (part.startsWith('**') && part.endsWith('**'))
+            return <strong key={j} className="text-white font-semibold">{part.slice(2, -2)}</strong>
+          if (part.startsWith('*') && part.endsWith('*'))
+            return <em key={j}>{part.slice(1, -1)}</em>
+          return part
+        })
+
+        return (
+          <span key={i} className={cn('block', isBullet && 'pl-3 relative before:absolute before:left-0 before:content-["·"] before:text-emerald', i > 0 && !isBullet && 'mt-1.5')}>
+            {rendered}
+          </span>
+        )
+      })}
+    </>
+  )
+}
+
 interface ChatModalProps {
   open: boolean
   onClose: () => void
@@ -143,7 +171,11 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
                     : 'bg-white/5 border border-white/10 text-slate-300 rounded-bl-sm',
                 )}
               >
-                {msg.isGreeting ? t.chat.greeting : msg.content}
+                {msg.isGreeting
+                  ? t.chat.greeting
+                  : msg.role === 'assistant'
+                    ? <MarkdownText text={msg.content} />
+                    : msg.content}
               </div>
             </div>
           ))}
@@ -198,8 +230,8 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
             className={cn(
               'flex-1 resize-none rounded-xl bg-white/5 border border-white/10 px-3 py-2',
               'text-[0.8rem] text-white placeholder:text-slate-500',
-              'focus:outline-none focus:border-emerald-border',
-              'transition-all max-h-28 overflow-y-auto disabled:opacity-60',
+              'outline-none focus:outline-none focus:ring-0 focus:border-emerald-border',
+              'transition-colors max-h-28 overflow-y-auto disabled:opacity-60',
             )}
             style={{ lineHeight: '1.5' }}
           />

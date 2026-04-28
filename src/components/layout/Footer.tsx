@@ -1,9 +1,21 @@
 'use client'
 
 import Link from 'next/link'
+import { useState, useCallback } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
+
+function useCopyToClipboard(text: string) {
+  const [copied, setCopied] = useState(false)
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }, [text])
+  return { copied, copy }
+}
 
 const SOCIAL_LINKS = [
   {
@@ -62,6 +74,9 @@ export function Footer() {
     ? 'https://www.linkedin.com/in/aabv211996/?locale=es-ES'
     : 'https://www.linkedin.com/in/aabv211996/'
   const hoverText = 'hover:text-emerald'
+  const emailIcon = useCopyToClipboard('andres.buelvas.2102@gmail.com')
+  const email = useCopyToClipboard('andres.buelvas.2102@gmail.com')
+  const linkedin = useCopyToClipboard('linkedin.com/in/andres-buelvas')
 
   return (
     <footer
@@ -74,8 +89,8 @@ export function Footer() {
       <div className="max-w-5xl mx-auto px-6 pt-10 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
 
-          {/* Col 1 — Brand + socials: row on mobile, column on md+ */}
-          <div className="flex items-center justify-between md:flex-col md:justify-between md:gap-0">
+          {/* Col 1 — Brand + socials: column on all breakpoints */}
+          <div className="flex flex-col gap-3 md:gap-4">
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-[9px] flex items-center justify-center text-[0.95rem] font-black text-emerald bg-[linear-gradient(135deg,rgba(16,185,129,0.3),rgba(16,185,129,0.08))] border border-emerald-border shadow-[0_0_14px_rgba(16,185,129,0.18)]">
                 AB
@@ -85,24 +100,48 @@ export function Footer() {
               </span>
             </div>
             <div className="flex gap-2">
-              {SOCIAL_LINKS.map(({ label, href, icon, download }) => (
-                <a
-                  key={label}
-                  href={label === 'LinkedIn' ? linkedInHref : href}
-                  download={download ? true : undefined}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  aria-label={label}
-                  className="w-[34px] h-[34px] rounded-lg flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-emerald hover:border-emerald-border hover:bg-emerald-subtle transition-all duration-200"
-                >
-                  {icon}
-                </a>
-              ))}
+              {SOCIAL_LINKS.map(({ label, href, icon, download }) => {
+                const isMail = href.startsWith('mailto:')
+                const resolvedHref = label === 'LinkedIn' ? linkedInHref : href
+                if (isMail) {
+                  return (
+                    <button
+                      key={label}
+                      onClick={emailIcon.copy}
+                      aria-label={label}
+                      className="relative w-[34px] h-[34px] rounded-lg flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-emerald hover:border-emerald-border hover:bg-emerald-subtle transition-all duration-200"
+                    >
+                      {icon}
+                      {emailIcon.copied && (
+                        <span className={cn(
+                          'absolute -top-8 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md text-[0.7rem] font-semibold whitespace-nowrap pointer-events-none animate-in fade-in duration-150',
+                          isDark ? 'bg-slate-800 text-emerald border border-emerald-border shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-white text-emerald border border-emerald-border shadow-md'
+                        )}>
+                          {lang === 'es' ? '¡Copiado!' : 'Copied!'}
+                        </span>
+                      )}
+                    </button>
+                  )
+                }
+                return (
+                  <a
+                    key={label}
+                    href={resolvedHref}
+                    download={download ? true : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-[34px] h-[34px] rounded-lg flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-emerald hover:border-emerald-border hover:bg-emerald-subtle transition-all duration-200"
+                  >
+                    {icon}
+                  </a>
+                )
+              })}
             </div>
           </div>
 
-          {/* Cols 2+3: 2-col grid on mobile, slots into parent 3-col grid on md+ */}
-          <div className="grid grid-cols-2 md:contents gap-8 md:gap-0">
+          {/* Cols 2+3: stack on mobile, slots into parent 3-col grid on md+ */}
+          <div className="flex flex-col gap-8 md:contents">
             {/* Col 2 — Pages */}
             <div>
               <h4 className="section-label mb-4">{t.footer.pages}</h4>
@@ -121,19 +160,27 @@ export function Footer() {
             </div>
 
             {/* Col 3 — Contact */}
-            <div>
+            <div className="min-w-0">
               <h4 className="section-label mb-4">{t.footer.contact}</h4>
               <div className="flex flex-col gap-2.5">
-                <a
-                  href="mailto:andres.buelvas.2102@gmail.com"
-                  className={cn("flex items-center gap-2 text-[0.8rem] text-slate-500 transition-colors", hoverText)}
+                <button
+                  onClick={email.copy}
+                  className={cn("flex items-center gap-2 text-[0.8rem] text-slate-500 transition-colors min-w-0 text-left relative", hoverText)}
                 >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                   </svg>
-                  andres.buelvas.2102@gmail.com
-                </a>
+                  <span className="truncate md:break-all min-w-0">andres.buelvas.2102@gmail.com</span>
+                  {email.copied && (
+                    <span className={cn(
+                      'absolute -top-7 left-0 px-2.5 py-1 rounded-md text-[0.7rem] font-semibold whitespace-nowrap pointer-events-none animate-in fade-in duration-150',
+                      isDark ? 'bg-slate-800 text-emerald border border-emerald-border shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-white text-emerald border border-emerald-border shadow-md'
+                    )}>
+                      {lang === 'es' ? '¡Copiado!' : 'Copied!'}
+                    </span>
+                  )}
+                </button>
                 <span className="flex items-center gap-2 text-[0.8rem] text-slate-500">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -141,17 +188,23 @@ export function Footer() {
                   </svg>
                   {t.footer.location}
                 </span>
-                <a
-                  href={linkedInHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn("flex items-center gap-2 text-[0.8rem] text-slate-500 transition-colors", hoverText)}
+                <button
+                  onClick={linkedin.copy}
+                  className={cn("flex items-center gap-2 text-[0.8rem] text-slate-500 transition-colors min-w-0 text-left relative", hoverText)}
                 >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#10B981">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#10B981" className="flex-shrink-0">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                   </svg>
-                  linkedin.com/in/andres-buelvas
-                </a>
+                  <span className="truncate md:break-all min-w-0">linkedin.com/in/andres-buelvas</span>
+                  {linkedin.copied && (
+                    <span className={cn(
+                      'absolute -top-7 left-0 px-2.5 py-1 rounded-md text-[0.7rem] font-semibold whitespace-nowrap pointer-events-none animate-in fade-in duration-150',
+                      isDark ? 'bg-slate-800 text-emerald border border-emerald-border shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-white text-emerald border border-emerald-border shadow-md'
+                    )}>
+                      {lang === 'es' ? '¡Copiado!' : 'Copied!'}
+                    </span>
+                  )}
+                </button>
                 <div className="inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.72rem] text-emerald font-medium self-start">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pdot" />
                   {t.footer.availability}
@@ -163,7 +216,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between flex-wrap gap-2">
-          <span className="text-[0.72rem] text-slate-600">{t.footer.copyright}</span>
+          <span className="text-[0.72rem] text-slate-600">© {new Date().getFullYear()} Andrés Buelvas</span>
           <a
             href="https://github.com/aabv21/portafolio-dev"
             target="_blank"

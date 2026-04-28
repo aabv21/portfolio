@@ -25,7 +25,7 @@ function ProjectRow({
 }) {
   const { t, lang } = useLang()
   const { isDark } = useTheme()
-  const { visibleTags, hiddenCount, expand } = useMobileTags(project.tags)
+  const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(project.tags)
 
   return (
     <div
@@ -97,6 +97,14 @@ function ProjectRow({
               +{hiddenCount}
             </button>
           )}
+          {canCollapse && (
+            <button
+              onClick={collapse}
+              className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+            >
+              {t.skills.showLess}
+            </button>
+          )}
         </div>
 
         {/* footer row */}
@@ -163,7 +171,7 @@ export default function ProyectosPage() {
     [activeTag],
   )
 
-  const { visibleTags: visibleFilters, hiddenCount: filterHiddenCount, expand: expandFilters } = useMobileTags(techTags, 5)
+  const { visibleTags: visibleFilters, hiddenCount: filterHiddenCount, canCollapse: filterCanCollapse, expand: expandFilters, collapse: collapseFilters } = useMobileTags(techTags, 5)
 
   return (
     <div className="section-bg min-h-screen relative overflow-hidden pt-[62px]">
@@ -209,6 +217,18 @@ export default function ProyectosPage() {
               className="px-3 py-1.5 rounded-full text-[0.75rem] font-bold border bg-emerald-subtle border-emerald-border text-emerald"
             >
               +{filterHiddenCount}
+            </button>
+          )}
+          {filterCanCollapse && (
+            <button
+              onClick={() => {
+                const willBeHidden = activeTag !== ALL && !techTags.slice(0, 5).includes(activeTag)
+                if (willBeHidden) setActiveTag(ALL)
+                collapseFilters()
+              }}
+              className="px-3 py-1.5 rounded-full text-[0.75rem] font-bold border bg-emerald-subtle border-emerald-border text-emerald"
+            >
+              {t.skills.showLess}
             </button>
           )}
         </div>

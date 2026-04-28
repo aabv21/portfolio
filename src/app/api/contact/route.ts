@@ -3,6 +3,8 @@ import { Resend } from 'resend'
 import { z } from 'zod'
 import { contactLimits } from '@/lib/rateLimit'
 
+export const maxDuration = 10
+
 function esc(s: string): string {
   return s
     .replace(/&/g, '&amp;')
@@ -32,8 +34,8 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
   const ip =
+    req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     '127.0.0.1'
   if (!contactLimits(ip).allowed) {
     return NextResponse.json({ error: 'rate_limit' }, { status: 429 })
@@ -79,5 +81,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } })
 }

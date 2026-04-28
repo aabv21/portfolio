@@ -54,6 +54,8 @@ export function About() {
             <a
               href="/andres-buelvas-cv.pdf"
               download
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 'inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-[0.82rem] font-medium transition-all w-fit',
                 isDark

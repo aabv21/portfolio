@@ -26,9 +26,10 @@ export async function getGithubProfile(): Promise<string> {
 
   const headers = { 'User-Agent': 'andres-buelvas-portfolio' }
 
+  const signal = AbortSignal.timeout(5000)
   const [profileRes, reposRes] = await Promise.all([
-    fetch(`https://api.github.com/users/${GITHUB_USER}`, { headers }),
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10&type=public`, { headers }),
+    fetch(`https://api.github.com/users/${GITHUB_USER}`, { headers, signal }),
+    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10&type=public`, { headers, signal }),
   ])
 
   if (!profileRes.ok || !reposRes.ok) throw new Error('GitHub API error')

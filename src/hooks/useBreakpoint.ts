@@ -1,11 +1,7 @@
 'use client'
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 
-type Breakpoint = 'mobile' | 'tablet' | 'desktop'
-
-// useLayoutEffect on client (fires before paint), useEffect on server (SSR compat)
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect
+export type Breakpoint = 'mobile' | 'tablet' | 'desktop' | null
 
 function getBreakpoint(): Breakpoint {
   const w = window.innerWidth
@@ -13,8 +9,8 @@ function getBreakpoint(): Breakpoint {
 }
 
 export function useBreakpoint(): Breakpoint {
-  const [bp, setBp] = useState<Breakpoint>('desktop')
-  useIsomorphicLayoutEffect(() => {
+  const [bp, setBp] = useState<Breakpoint>(null)
+  useLayoutEffect(() => {
     setBp(getBreakpoint())
     function update() { setBp(getBreakpoint()) }
     window.addEventListener('resize', update, { passive: true })

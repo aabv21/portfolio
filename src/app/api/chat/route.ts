@@ -6,6 +6,8 @@ import { getCvText } from '@/lib/cv-parser'
 import { getGithubProfile } from '@/lib/github-client'
 import { searchWeb } from '@/lib/tavily-client'
 
+export const maxDuration = 30
+
 const anthropic = new Anthropic()
 
 const SYSTEM_PROMPT = `<security>
@@ -143,10 +145,9 @@ async function runAgentLoop(userMessage: string): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
-  // Prefer Vercel's trusted ip over the client-controllable x-forwarded-for header
   const ip =
+    req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     '127.0.0.1'
   if (!chatLimits(ip).allowed) {
     return NextResponse.json({ error: 'rate_limit' }, { status: 429 })
@@ -178,7 +179,7 @@ export async function POST(req: NextRequest) {
   try {
     const reply = await runAgentLoop(message)
     if (!reply) return NextResponse.json({ error: 'upstream_error' }, { status: 502 })
-    return NextResponse.json({ reply })
+    return NextResponse.json({ reply }, { headers: { 'Cache-Control': 'no-store' } })
   } catch {
     return NextResponse.json({ error: 'upstream_error' }, { status: 502 })
   }

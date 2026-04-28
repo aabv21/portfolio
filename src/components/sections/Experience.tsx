@@ -11,7 +11,7 @@ import { CarouselProgressBar } from '@/components/ui/carousel-progress-bar'
 import { experience } from '@/data/experience'
 import { SectionHeading } from '@/components/ui/section-heading'
 import type { CompanyEntry } from '@/types'
-import { cn } from '@/lib/utils'
+import { cn, formatPeriod } from '@/lib/utils'
 
 function DefaultTagIcon({ size, className }: { size: number; className: string }) {
   return (
@@ -34,7 +34,8 @@ function TagBadge({ name }: { name: string }) {
 function WorkCard({ entry }: { entry: CompanyEntry }) {
   const { lang } = useLang()
   const latestRole = entry.roles[0]
-  const { visibleTags, hiddenCount, expand } = useMobileTags(entry.tags)
+  const { t } = useLang()
+  const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(entry.tags)
 
   return (
     <div className="glass-card p-6 h-full flex flex-col gap-4">
@@ -44,7 +45,7 @@ function WorkCard({ entry }: { entry: CompanyEntry }) {
         </div>
         <div className="flex-1 min-w-0">
           <span className="text-[0.72rem] font-semibold text-emerald uppercase tracking-wide">
-            {entry.totalPeriod}
+            {formatPeriod(entry.totalPeriod, lang)}
           </span>
           <h3 className="text-[0.95rem] font-bold text-white mt-0.5 leading-tight">{entry.company}</h3>
           <p className="text-[0.82rem] text-slate-500">{latestRole.title[lang]}</p>
@@ -67,6 +68,14 @@ function WorkCard({ entry }: { entry: CompanyEntry }) {
             className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
           >
             +{hiddenCount}
+          </button>
+        )}
+        {canCollapse && (
+          <button
+            onClick={collapse}
+            className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+          >
+            {t.skills.showLess}
           </button>
         )}
       </div>
