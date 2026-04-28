@@ -41,7 +41,7 @@ export const es = {
     sectionLabel: 'Mi trayectoria',
     sectionTitle: 'Experiencia',
     pausedLabel: 'En pausa',
-    viewDetails: 'Ver detalles',
+    viewDetails: 'Ver detalles completos',
     viewAll: 'Ver toda la experiencia',
     responsibilities: 'Responsabilidades',
     close: 'Cerrar',

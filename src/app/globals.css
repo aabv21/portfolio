@@ -49,6 +49,12 @@
   * {
     @apply border-border;
   }
+  html {
+    background-color: #0a1628;
+  }
+  html.light {
+    background-color: #f8fafc;
+  }
   body {
     @apply bg-[#0a1628] text-slate-100;
     font-family: var(--font-inter), system-ui, sans-serif;

@@ -91,6 +91,7 @@ function ProjectRow({
           })}
           {hiddenCount > 0 && (
             <button
+              onTouchEnd={(e) => { e.preventDefault(); expand() }}
               onClick={expand}
               className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
             >
@@ -213,6 +214,7 @@ export default function ProyectosPage() {
           ))}
           {filterHiddenCount > 0 && (
             <button
+              onTouchEnd={(e) => { e.preventDefault(); expandFilters() }}
               onClick={expandFilters}
               className="px-3 py-1.5 rounded-full text-[0.75rem] font-bold border bg-emerald-subtle border-emerald-border text-emerald"
             >
