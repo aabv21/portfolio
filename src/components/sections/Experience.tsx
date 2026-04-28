@@ -32,9 +32,8 @@ function TagBadge({ name }: { name: string }) {
 }
 
 function WorkCard({ entry }: { entry: CompanyEntry }) {
-  const { lang } = useLang()
+  const { lang, t } = useLang()
   const latestRole = entry.roles[0]
-  const { t } = useLang()
   const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(entry.tags)
 
   return (
@@ -115,7 +114,7 @@ export function Experience() {
               }}
             >
               {SLIDES.map((entry, i) => (
-                <div key={i} className="min-w-full">
+                <div key={`${entry.company}-${i}`} className="min-w-full">
                   <WorkCard entry={entry} />
                 </div>
               ))}

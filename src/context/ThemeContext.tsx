@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
 
 type Theme = 'dark' | 'light'
 
@@ -12,15 +12,28 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
+function applyTheme(t: Theme) {
+  document.documentElement.classList.toggle('dark', t === 'dark')
+  document.documentElement.classList.toggle('light', t === 'light')
+  document.cookie = `theme=${t};path=/;max-age=31536000;SameSite=Lax;Secure`
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark')
+
+  useEffect(() => {
+    const stored = document.cookie.match(/(?:^|; )theme=(dark|light)/)
+    if (stored) {
+      const saved = stored[1] as Theme
+      setTheme(saved)
+      applyTheme(saved)
+    }
+  }, [])
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
       const next: Theme = prev === 'dark' ? 'light' : 'dark'
-      const root = document.documentElement
-      root.classList.toggle('dark', next === 'dark')
-      root.classList.toggle('light', next === 'light')
+      applyTheme(next)
       return next
     })
   }, [])

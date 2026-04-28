@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, memo } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -11,7 +11,7 @@ interface Message {
   isGreeting?: boolean
 }
 
-function MarkdownText({ text }: { text: string }) {
+const MarkdownText = memo(function MarkdownText({ text }: { text: string }) {
   const lines = text.split('\n')
   return (
     <>
@@ -37,7 +37,7 @@ function MarkdownText({ text }: { text: string }) {
       })}
     </>
   )
-}
+})
 
 interface ChatModalProps {
   open: boolean
@@ -60,11 +60,23 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
   }, [open, messages.length])
 
   useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, loading])
 
   useEffect(() => {
-    if (open) textareaRef.current?.focus()
+    if (!open) return
+    // Delay focus on iOS to prevent automatic zoom (iOS zooms on focus if font-size < 16px)
+    const id = setTimeout(() => textareaRef.current?.focus(), 100)
+    return () => clearTimeout(id)
   }, [open])
 
   const send = useCallback(async (text: string) => {
@@ -115,10 +127,11 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto"
         onClick={onClose}
+        onTouchMove={(e) => e.preventDefault()}
       />
 
       {/* Panel */}
-      <div className="relative pointer-events-auto w-full md:max-w-[420px] h-[90dvh] md:h-[580px] flex flex-col glass-card overflow-hidden shadow-[0_8px_64px_rgba(0,0,0,0.6)] border border-white/10 rounded-t-2xl rounded-b-none md:rounded-2xl">
+      <div className="relative pointer-events-auto w-full md:max-w-[420px] h-[90dvh] md:h-[580px] flex flex-col glass-card overflow-hidden shadow-[0_8px_64px_rgba(0,0,0,0.6)] border border-white/10 rounded-t-2xl rounded-b-none md:rounded-2xl pb-[env(safe-area-inset-bottom)] md:pb-0">
         {/* Drag handle — mobile only */}
         <div className="md:hidden flex justify-center pt-2 pb-1 flex-shrink-0">
           <div className="w-8 h-1 rounded-full bg-white/20" />
@@ -182,6 +195,7 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
 
           {loading && (
             <div className="flex justify-start">
+              <span className="sr-only" aria-live="polite" aria-atomic="true">Loading response</span>
               <div className="bg-white/5 border border-white/10 px-3 py-2.5 rounded-2xl rounded-bl-sm flex items-center gap-1.5">
                 {[0, 1, 2].map((i) => (
                   <span
@@ -229,11 +243,11 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
             disabled={loading}
             className={cn(
               'flex-1 resize-none rounded-xl bg-white/5 border border-white/10 px-3 py-2',
-              'text-[0.8rem] text-white placeholder:text-slate-500',
+              'text-white placeholder:text-slate-500',
               'outline-none focus:outline-none focus:ring-0 focus:border-emerald-border',
               'transition-colors max-h-28 overflow-y-auto disabled:opacity-60',
             )}
-            style={{ lineHeight: '1.5' }}
+            style={{ lineHeight: '1.5', fontSize: '16px' }}
           />
           <Button
             variant="emerald"

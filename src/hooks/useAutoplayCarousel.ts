@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 
-export const AUTOPLAY_INTERVAL = 3500
+export const AUTOPLAY_INTERVAL = 5500
 
 interface AutoplayCarouselReturn {
   current: number

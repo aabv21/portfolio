@@ -2,7 +2,9 @@ import type { MetadataRoute } from 'next'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://andres-buelvas.dev'
 
-const LAST_MODIFIED = new Date('2026-04-27')
+const LAST_MODIFIED = process.env.VERCEL_GIT_COMMIT_TIMESTAMP
+  ? new Date(process.env.VERCEL_GIT_COMMIT_TIMESTAMP)
+  : new Date()
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
