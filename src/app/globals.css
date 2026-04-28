@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --primary: 160 84% 39%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 160 84% 39%;
+  --radius: 0.75rem;
+}
+
+.light {
+  --background: 210 40% 98%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --primary: 160 84% 39%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 160 84% 39%;
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#0a1628] text-slate-100;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* ── Shared section background ─────────────────────────────── */
+@layer components {
+  .section-bg {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16, 185, 129, 0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 85% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+      linear-gradient(160deg, #0a1628 0%, #0f1f1a 40%, #0a1628 100%);
+    position: relative;
+  }
+
+  .section-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Glassmorphism card ──────────────────────────────────── */
+  .glass-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+  }
+
+  /* ── Emerald card (lighter glass) ───────────────────────── */
+  .emerald-card {
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 14px;
+  }
+
+  /* ── Section typography ──────────────────────────────────── */
+  .section-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #10b981;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #f8fafc;
+    line-height: 1.1;
+  }
+
+  /* ── Geometric decoration shapes ────────────────────────── */
+  .geo-shape {
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  /* ── Pulsing dot node ────────────────────────────────────── */
+  .pulse-node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    animation: pulse 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ── Progress bar (carousel) ─────────────────────────────── */
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, rgba(16, 185, 129, 0.6));
+    border-radius: 9999px;
+  }
+
+  /* ── Error text ──────────────────────────────────────────── */
+  .text-error {
+    color: #fc7c78;
+  }
+}
+
+/* ── Light Mode Overrides ──────────────────────────────────── */
+.light body {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.light .section-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16, 185, 129, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 85% 60%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    linear-gradient(160deg, #f8fafc 0%, #f0fdf8 40%, #f8fafc 100%);
+}
+
+.light .section-bg::before {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  opacity: 0.6;
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+}
+
+.light .section-title {
+  color: #0f172a;
+}
+
+.light .emerald-card {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Nav & footer backgrounds */
+.light header {
+  background: rgba(248, 250, 252, 0.9) !important;
+  border-bottom-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+.light footer {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e8f0ed 100%) !important;
+  border-top-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Text in light mode */
+.light .text-white { color: #0f172a; }
+.light .text-slate-100 { color: #1e293b; }
+.light .text-slate-300 { color: #334155; }
+.light .text-slate-400 { color: #475569; }
+.light .text-slate-500 { color: #334155; }
+
+/* Subtle backgrounds */
+.light .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04); }
+.light .bg-white\/10 { background-color: rgba(0, 0, 0, 0.07); }
+.light .border-white\/10 { border-color: rgba(0, 0, 0, 0.09); }
+.light .border-white\/\[0\.06\] { border-color: rgba(0, 0, 0, 0.06); }
+.light .border-white\/\[0\.07\] { border-color: rgba(0, 0, 0, 0.07); }
+
+/* Navbar links */
+.light nav a.text-slate-400 { color: #475569; }
+.light nav a.text-white { color: #0f172a; }
