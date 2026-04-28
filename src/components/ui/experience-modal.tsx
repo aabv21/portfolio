@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { getIcon, TAG_ICONS } from '@/lib/icons'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
-import { cn } from '@/lib/utils'
+import { cn, formatPeriod } from '@/lib/utils'
 import type { CompanyEntry } from '@/types'
 
 function DefaultTagIcon({ size, className }: { size: number; className: string }) {
@@ -68,7 +68,7 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
             <h2 className={cn('text-[1.1rem] font-extrabold leading-tight', isDark ? 'text-white' : 'text-slate-900')}>
               {entry.company}
             </h2>
-            <p className="text-[0.72rem] text-emerald font-semibold mt-0.5">{entry.totalPeriod}</p>
+            <p className="text-[0.72rem] text-emerald font-semibold mt-0.5">{formatPeriod(entry.totalPeriod, lang)}</p>
             <div className="flex flex-wrap gap-1.5 mt-2">
               {entry.tags.map((tag) => {
                 const Icon = (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null) ?? DefaultTagIcon
@@ -144,7 +144,7 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
                       'text-[0.62rem] font-semibold whitespace-nowrap',
                       isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
                     )}>
-                      {role.period}
+                      {formatPeriod(role.period, lang)}
                     </span>
                   </div>
 

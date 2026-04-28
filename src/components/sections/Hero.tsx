@@ -76,7 +76,7 @@ export function Hero() {
             asChild size="lg" variant="ghost"
             className={isDark ? '' : 'border-slate-300 text-slate-700 hover:bg-black/5 hover:text-slate-900'}
           >
-            <a href="/andres-buelvas-cv.pdf" download>{t.hero.cv}</a>
+            <a href="/andres-buelvas-cv.pdf" download target="_blank" rel="noopener noreferrer">{t.hero.cv}</a>
           </Button>
         </div>
 

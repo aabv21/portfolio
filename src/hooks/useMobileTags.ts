@@ -5,8 +5,11 @@ import { useBreakpoint } from './useBreakpoint'
 export function useMobileTags(tags: string[], maxVisible = 4) {
   const [expanded, setExpanded] = useState(false)
   const bp = useBreakpoint()
-  const isMobile = bp === 'mobile'
-  const visibleTags = isMobile && !expanded ? tags.slice(0, maxVisible) : tags
-  const hiddenCount = isMobile && !expanded ? Math.max(0, tags.length - maxVisible) : 0
-  return { visibleTags, hiddenCount, expand: () => setExpanded(true) }
+  // bp === null means breakpoint not yet measured — show all tags, no +N button
+  const isSmall = bp === 'mobile' || bp === 'tablet'
+  const shouldCollapse = isSmall && !expanded
+  const visibleTags = shouldCollapse ? tags.slice(0, maxVisible) : tags
+  const hiddenCount = shouldCollapse ? Math.max(0, tags.length - maxVisible) : 0
+  const canCollapse = isSmall && expanded
+  return { visibleTags, hiddenCount, canCollapse, expand: () => setExpanded(true), collapse: () => setExpanded(false) }
 }

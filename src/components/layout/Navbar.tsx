@@ -124,64 +124,88 @@ export function Navbar({ onChatOpen }: NavbarProps) {
               <span className="w-5 h-0.5 bg-slate-400 rounded-full" />
             </button>
           </SheetTrigger>
-          <SheetContent className="bg-[#071020] border-l border-emerald-border">
+          <SheetContent className={cn('border-l border-emerald-border flex flex-col p-0', isDark ? 'bg-[#071020]' : 'bg-[#f8fafc]')}>
             {/* Logo + name header */}
-            <div className="flex items-center gap-2 px-3 pb-4 mb-2 border-b border-white/[0.08]">
+            <div className={cn('flex items-center gap-2 px-5 py-4 border-b', isDark ? 'border-white/[0.08]' : 'border-black/[0.06]')}>
               <div className="w-8 h-8 rounded-[8px] flex items-center justify-center text-[0.85rem] font-black text-emerald bg-[linear-gradient(135deg,rgba(16,185,129,0.3),rgba(16,185,129,0.08))] border border-emerald-border">
                 AB
               </div>
-              <span className="text-[0.85rem] font-bold text-white">
+              <span className={cn('text-[0.85rem] font-bold', isDark ? 'text-white' : 'text-slate-900')}>
                 Andrés <span className="text-emerald">Buelvas</span>
               </span>
             </div>
-            {PAGE_LINKS.map(({ labelKey, href }) => (
-              <SheetClose asChild key={href}>
-                <Link
-                  href={href}
-                  className={cn(
-                    'text-[0.9rem] px-3 py-2.5 rounded-lg transition-all block',
-                    pathname === href
-                      ? 'text-emerald bg-emerald-subtle'
-                      : 'text-slate-400 hover:text-emerald',
-                  )}
-                >
-                  {t.nav[labelKey]}
-                </Link>
-              </SheetClose>
-            ))}
-            <div className="h-px bg-white/10 my-1" />
-            <div className="flex items-center gap-3 px-3 pt-1">
-              <div className={cn(
-                'flex items-center rounded-full p-0.5 border',
-                isDark ? 'bg-[rgba(30,41,59,0.7)] border-white/10' : 'bg-black/[0.06] border-black/10',
-              )}>
-                {(['es', 'en'] as const).map((l) => (
-                  <button
-                    key={l}
-                    onClick={toggleLang}
+
+            {/* Nav links */}
+            <nav className="flex flex-col gap-1 px-3 pt-4">
+              {PAGE_LINKS.map(({ labelKey, href }) => (
+                <SheetClose asChild key={href}>
+                  <Link
+                    href={href}
                     className={cn(
-                      'text-[0.72rem] font-semibold px-2.5 py-1 rounded-full transition-all uppercase',
-                      lang === l
-                        ? 'bg-emerald-subtle text-emerald border border-emerald-border'
-                        : isDark ? 'text-slate-400' : 'text-slate-500',
+                      'text-[0.95rem] px-4 py-3 rounded-lg transition-all block font-medium',
+                      pathname === href
+                        ? 'text-emerald bg-emerald-subtle'
+                        : isDark
+                          ? 'text-slate-400 hover:text-emerald hover:bg-white/[0.04]'
+                          : 'text-slate-500 hover:text-emerald hover:bg-black/[0.04]',
                     )}
                   >
-                    {l}
-                  </button>
-                ))}
+                    {t.nav[labelKey]}
+                  </Link>
+                </SheetClose>
+              ))}
+            </nav>
+
+            {/* Spacer */}
+            <div className="flex-1" />
+
+            {/* Controls footer */}
+            <div className={cn('px-5 pb-8 flex flex-col gap-4 border-t pt-5', isDark ? 'border-white/[0.08]' : 'border-black/[0.06]')}>
+              {/* Lang + Theme in one row */}
+              <div className="flex items-center justify-between">
+                <div className={cn(
+                  'flex items-center rounded-full p-0.5 border',
+                  isDark ? 'bg-[rgba(30,41,59,0.7)] border-white/10' : 'bg-black/[0.06] border-black/10',
+                )}>
+                  {(['es', 'en'] as const).map((l) => (
+                    <button
+                      key={l}
+                      onClick={toggleLang}
+                      className={cn(
+                        'text-[0.72rem] font-semibold px-2.5 py-1 rounded-full transition-all uppercase',
+                        lang === l
+                          ? 'bg-emerald-subtle text-emerald border border-emerald-border'
+                          : isDark ? 'text-slate-400' : 'text-slate-500',
+                      )}
+                    >
+                      {l}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={toggleTheme}
+                  className={cn(
+                    'w-[34px] h-[34px] flex items-center justify-center rounded-lg border transition-all',
+                    isDark
+                      ? 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
+                      : 'bg-black/5 border-black/10 text-slate-500 hover:text-slate-900 hover:bg-black/10',
+                  )}
+                >
+                  {isDark ? '🌙' : '☀️'}
+                </button>
               </div>
-              <button
-                onClick={toggleTheme}
-                className="w-[34px] h-[34px] flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400"
-              >
-                {isDark ? '🌙' : '☀️'}
-              </button>
-              <button
-                onClick={onChatOpen}
-                className="flex-1 flex items-center justify-center gap-2 py-2 rounded-full bg-emerald-subtle border border-emerald-border text-emerald text-[0.78rem] font-semibold"
-              >
-                <span>🤖</span> {t.nav.chat}
-              </button>
+
+              {/* Chat AI button — same style as desktop, full width */}
+              <SheetClose asChild>
+                <button
+                  onClick={onChatOpen}
+                  className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-full bg-emerald-subtle border border-emerald-border text-emerald text-[0.82rem] font-semibold shadow-[0_0_12px_rgba(16,185,129,0.1)] hover:bg-emerald/20 transition-all"
+                >
+                  <span className="text-[0.9rem]">🤖</span>
+                  {t.nav.chat}
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pdot" />
+                </button>
+              </SheetClose>
             </div>
           </SheetContent>
         </Sheet>

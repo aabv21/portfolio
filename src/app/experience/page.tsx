@@ -7,7 +7,7 @@ import { useTheme } from '@/context/ThemeContext'
 import { useMobileTags } from '@/hooks/useMobileTags'
 import { experience } from '@/data/experience'
 import { ExperienceModal } from '@/components/ui/experience-modal'
-import { cn } from '@/lib/utils'
+import { cn, formatPeriod } from '@/lib/utils'
 import type { CompanyEntry } from '@/types'
 
 function DefaultTagIcon({ size, className }: { size: number; className: string }) {
@@ -19,7 +19,8 @@ function DefaultTagIcon({ size, className }: { size: number; className: string }
 }
 
 function TagRow({ tags }: { tags: string[] }) {
-  const { visibleTags, hiddenCount, expand } = useMobileTags(tags)
+  const { t } = useLang()
+  const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(tags)
   return (
     <div className="flex flex-wrap gap-1.5">
       {visibleTags.map((tag) => {
@@ -40,6 +41,14 @@ function TagRow({ tags }: { tags: string[] }) {
           className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
         >
           +{hiddenCount}
+        </button>
+      )}
+      {canCollapse && (
+        <button
+          onClick={collapse}
+          className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+        >
+          {t.skills.showLess}
         </button>
       )}
     </div>
@@ -72,7 +81,7 @@ function CompanyRow({
           <h2 className={cn('text-[0.95rem] font-bold leading-tight', isDark ? 'text-white' : 'text-slate-900')}>
             {entry.company}
           </h2>
-          <p className="text-[0.72rem] font-semibold text-emerald mt-0.5">{entry.totalPeriod}</p>
+          <p className="text-[0.72rem] font-semibold text-emerald mt-0.5">{formatPeriod(entry.totalPeriod, lang)}</p>
           {/* Tags: visible on md+ inline in header */}
           <div className="hidden md:flex flex-wrap gap-1.5 mt-2">
             {entry.tags.map((tag) => {
@@ -113,24 +122,26 @@ function CompanyRow({
             <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-6 px-5 py-4">
               {/* Role title + period */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className={cn(
-                    'w-2 h-2 rounded-full flex-shrink-0',
-                    isLatest ? 'bg-emerald' : isDark ? 'bg-slate-600' : 'bg-slate-300',
-                  )} />
-                  <span className={cn(
-                    'text-[0.82rem] font-semibold',
-                    isLatest
-                      ? isDark ? 'text-white' : 'text-slate-900'
-                      : isDark ? 'text-slate-300' : 'text-slate-600',
-                  )}>
-                    {role.title[lang]}
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="inline-flex items-center gap-2 min-w-0">
+                    <span className={cn(
+                      'w-2 h-2 rounded-full flex-shrink-0 translate-y-px',
+                      isLatest ? 'bg-emerald' : isDark ? 'bg-slate-600' : 'bg-slate-300',
+                    )} />
+                    <span className={cn(
+                      'text-[0.82rem] font-semibold',
+                      isLatest
+                        ? isDark ? 'text-white' : 'text-slate-900'
+                        : isDark ? 'text-slate-300' : 'text-slate-600',
+                    )}>
+                      {role.title[lang]}
+                    </span>
                   </span>
                   <span className={cn(
                     'text-[0.68rem] font-medium',
                     isLatest ? 'text-emerald' : isDark ? 'text-slate-500' : 'text-slate-400',
                   )}>
-                    {role.period}
+                    {formatPeriod(role.period, lang)}
                   </span>
                 </div>
               </div>
