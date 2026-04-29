@@ -34,7 +34,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-8',
+        'navbar-safe-area fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-8',
         'backdrop-blur-xl border-b transition-all duration-300',
         'h-[calc(62px+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)]',
         isDark ? 'bg-[rgba(10,22,40,0.75)]' : 'bg-[rgba(248,250,252,0.9)]',

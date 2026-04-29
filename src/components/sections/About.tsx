@@ -83,7 +83,7 @@ export function About() {
               {EDUCATION.map(({ year, title, school }, i) => (
                 <div key={i} className="flex gap-5 pb-8 last:pb-0">
                   <div className="relative flex-shrink-0 mt-1.5">
-                    <div className="w-3.5 h-3.5 rounded-full border-2 border-emerald bg-[#0a1628] shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                    <div className={cn('w-3.5 h-3.5 rounded-full border-2 border-emerald shadow-[0_0_8px_rgba(16,185,129,0.4)]', isDark ? 'bg-[#0a1628]' : 'bg-[#f8fafc]')} />
                   </div>
                   <div>
                     <span className="text-[0.72rem] font-semibold text-emerald uppercase tracking-wide">

@@ -17,6 +17,8 @@ export function useAutoplayCarousel(total: number): AutoplayCarouselReturn {
   const [isPaused, setIsPaused] = useState(false)
   const pausedRef = useRef(false)
 
+  const restartRef = useRef<(() => void) | null>(null)
+
   const goTo = useCallback(
     (index: number) => setCurrent(((index % total) + total) % total),
     [total],
@@ -30,12 +32,21 @@ export function useAutoplayCarousel(total: number): AutoplayCarouselReturn {
   const resume = useCallback(() => {
     pausedRef.current = false
     setIsPaused(false)
+    restartRef.current?.()
   }, [])
 
   useEffect(() => {
-    const id = setInterval(() => {
+    let id = setInterval(() => {
       if (!pausedRef.current) setCurrent((c) => (c + 1) % total)
     }, AUTOPLAY_INTERVAL)
+
+    restartRef.current = () => {
+      clearInterval(id)
+      id = setInterval(() => {
+        if (!pausedRef.current) setCurrent((c) => (c + 1) % total)
+      }, AUTOPLAY_INTERVAL)
+    }
+
     return () => clearInterval(id)
   }, [total])
 
