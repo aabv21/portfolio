@@ -12,7 +12,7 @@ export function useMobileTags(tags: string[], maxVisible = 4) {
     ? Math.max(0, tags.length - maxVisible)
     : 0;
   const canCollapse = isSmall && expanded;
-  const expand = () => setTimeout(() => setExpanded(true), 350);
+  const expand = () => setExpanded(true);
   const collapse = () => setExpanded(false);
   return { visibleTags, hiddenCount, canCollapse, expand, collapse };
 }

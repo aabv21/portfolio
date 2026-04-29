@@ -20,7 +20,11 @@ function DefaultTagIcon({ size, className }: { size: number; className: string }
 
 function TagRow({ tags }: { tags: string[] }) {
   const { t } = useLang()
+  const { isDark } = useTheme()
   const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(tags)
+  const expandBtnCls = isDark
+    ? 'bg-white/[0.07] border-white/[0.15] text-slate-400'
+    : 'bg-black/[0.06] border-black/[0.12] text-slate-500'
   return (
     <div className="flex flex-wrap gap-1.5">
       {visibleTags.map((tag) => {
@@ -28,7 +32,10 @@ function TagRow({ tags }: { tags: string[] }) {
         return (
           <span
             key={tag}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[0.68rem] text-slate-400"
+            className={cn(
+              'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.68rem] text-slate-400',
+              isDark ? 'bg-white/5 border border-white/10' : 'bg-black/[0.04] border border-black/[0.1]',
+            )}
           >
             <Icon size={8} className="text-emerald" />
             {tag}
@@ -37,16 +44,17 @@ function TagRow({ tags }: { tags: string[] }) {
       })}
       {hiddenCount > 0 && (
         <button
+          onTouchEnd={(e) => { e.preventDefault(); expand() }}
           onClick={expand}
-          className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+          className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', expandBtnCls)}
         >
-          +{hiddenCount}
+          +{hiddenCount} ›
         </button>
       )}
       {canCollapse && (
         <button
           onClick={collapse}
-          className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+          className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', expandBtnCls)}
         >
           {t.skills.showLess}
         </button>

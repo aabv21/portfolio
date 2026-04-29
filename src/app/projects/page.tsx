@@ -93,15 +93,15 @@ function ProjectRow({
             <button
               onTouchEnd={(e) => { e.preventDefault(); expand() }}
               onClick={expand}
-              className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+              className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', isDark ? 'bg-white/[0.07] border-white/[0.15] text-slate-400' : 'bg-black/[0.06] border-black/[0.12] text-slate-500')}
             >
-              +{hiddenCount}
+              +{hiddenCount} ›
             </button>
           )}
           {canCollapse && (
             <button
               onClick={collapse}
-              className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+              className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', isDark ? 'bg-white/[0.07] border-white/[0.15] text-slate-400' : 'bg-black/[0.06] border-black/[0.12] text-slate-500')}
             >
               {t.skills.showLess}
             </button>
@@ -158,6 +158,7 @@ const ALL = '__all__'
 
 export default function ProyectosPage() {
   const { t } = useLang()
+  const { isDark } = useTheme()
   const [activeTag, setActiveTag] = useState<string>(ALL)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
@@ -216,9 +217,9 @@ export default function ProyectosPage() {
             <button
               onTouchEnd={(e) => { e.preventDefault(); expandFilters() }}
               onClick={expandFilters}
-              className="px-3 py-1.5 rounded-full text-[0.75rem] font-bold border bg-emerald-subtle border-emerald-border text-emerald"
+              className={cn('px-3 py-1.5 rounded-full text-[0.75rem] font-semibold border', isDark ? 'bg-white/[0.07] border-white/[0.15] text-slate-400' : 'bg-black/[0.06] border-black/[0.12] text-slate-500')}
             >
-              +{filterHiddenCount}
+              +{filterHiddenCount} ›
             </button>
           )}
           {filterCanCollapse && (
@@ -228,7 +229,7 @@ export default function ProyectosPage() {
                 if (willBeHidden) setActiveTag(ALL)
                 collapseFilters()
               }}
-              className="px-3 py-1.5 rounded-full text-[0.75rem] font-bold border bg-emerald-subtle border-emerald-border text-emerald"
+              className={cn('px-3 py-1.5 rounded-full text-[0.75rem] font-semibold border', isDark ? 'bg-white/[0.07] border-white/[0.15] text-slate-400' : 'bg-black/[0.06] border-black/[0.12] text-slate-500')}
             >
               {t.skills.showLess}
             </button>

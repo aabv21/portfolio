@@ -36,7 +36,11 @@ function ProjectCard({
   lang: 'es' | 'en'
 }) {
   const { t } = useLang()
+  const { isDark } = useTheme()
   const { visibleTags, hiddenCount, canCollapse, expand, collapse } = useMobileTags(project.tags)
+  const expandBtnCls = isDark
+    ? 'bg-white/[0.07] border-white/[0.15] text-slate-400'
+    : 'bg-black/[0.06] border-black/[0.12] text-slate-500'
 
   return (
     <div className="glass-card overflow-hidden h-full flex flex-col">
@@ -97,16 +101,17 @@ function ProjectCard({
           })}
           {hiddenCount > 0 && (
             <button
+              onTouchEnd={(e) => { e.preventDefault(); expand() }}
               onClick={expand}
-              className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+              className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', expandBtnCls)}
             >
-              +{hiddenCount}
+              +{hiddenCount} ›
             </button>
           )}
           {canCollapse && (
             <button
               onClick={collapse}
-              className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-subtle border border-emerald-border text-[0.68rem] font-bold text-emerald"
+              className={cn('inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-[0.68rem] font-semibold', expandBtnCls)}
             >
               {t.skills.showLess}
             </button>

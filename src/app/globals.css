@@ -63,6 +63,26 @@
   }
 }
 
+/* ── Safe-area header fill ─────────────────────────────────── */
+/* Fills the notch/Dynamic Island zone with the same solid color as the
+   navbar so the semi-transparent backdrop-blur doesn't leak content through */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .navbar-safe-area::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background-color: #0a1628;
+    z-index: 51;
+    transition: background-color 0.3s ease;
+  }
+  html.light .navbar-safe-area::before {
+    background-color: #f8fafc;
+  }
+}
+
 /* ── Shared section background ─────────────────────────────── */
 @layer components {
   .section-bg {
