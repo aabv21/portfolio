@@ -36,12 +36,15 @@ export function Navbar({ onChatOpen }: NavbarProps) {
       className={cn(
         'navbar-safe-area fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-8',
         'backdrop-blur-xl border-b transition-all duration-300',
-        'h-[calc(62px+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)]',
         isDark ? 'bg-[rgba(10,22,40,0.75)]' : 'bg-[rgba(248,250,252,0.9)]',
         scrolled
           ? 'border-emerald-border shadow-[0_4px_32px_rgba(0,0,0,0.5)]'
           : 'border-[rgba(16,185,129,0.12)] shadow-[0_4px_24px_rgba(0,0,0,0.25)]',
       )}
+      style={{
+        paddingTop: 'env(safe-area-inset-top, 44px)',
+        height: 'calc(62px + env(safe-area-inset-top, 44px))',
+      }}
     >
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 flex-shrink-0">

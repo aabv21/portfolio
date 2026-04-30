@@ -51,12 +51,12 @@ const jsonLd = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const jar = await cookies()
-  const theme = jar.get('theme')?.value === 'light' ? 'light' : 'dark'
-  const lang = jar.get('lang')?.value === 'es' ? 'es' : 'en'
+  const cookieStore = await cookies()
+  const initialTheme = cookieStore.get('theme')?.value === 'light' ? 'light' : 'dark'
+  const initialLang = cookieStore.get('lang')?.value === 'es' ? 'es' : 'en'
 
   return (
-    <html lang={lang} className={theme} suppressHydrationWarning>
+    <html lang={initialLang} className={initialTheme} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <script
@@ -66,8 +66,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className={`${inter.variable} antialiased min-h-screen`}>
         <NextTopLoader color="#10B981" shadow="0 0 10px #10B981,0 0 5px #10B981" showSpinner={false} height={2} />
-        <ThemeProvider initialTheme={theme}>
-          <LanguageProvider initialLang={lang}>
+        <ThemeProvider initialTheme={initialTheme}>
+          <LanguageProvider initialLang={initialLang}>
             <AppShell>{children}</AppShell>
           </LanguageProvider>
         </ThemeProvider>

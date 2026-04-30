@@ -15,7 +15,7 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-export function LanguageProvider({ children, initialLang }: { children: ReactNode; initialLang: Lang }) {
+export function LanguageProvider({ children, initialLang = 'en' }: { children: ReactNode; initialLang?: Lang }) {
   const [lang, setLang] = useState<Lang>(initialLang)
 
   const toggleLang = useCallback(() => {

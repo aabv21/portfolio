@@ -18,7 +18,7 @@ function applyTheme(t: Theme) {
   document.cookie = `theme=${t};path=/;max-age=31536000;SameSite=Lax;Secure`
 }
 
-export function ThemeProvider({ children, initialTheme }: { children: ReactNode; initialTheme: Theme }) {
+export function ThemeProvider({ children, initialTheme = 'dark' }: { children: ReactNode; initialTheme?: Theme }) {
   const [theme, setTheme] = useState<Theme>(initialTheme)
 
   const toggleTheme = useCallback(() => {
