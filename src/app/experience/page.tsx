@@ -171,7 +171,7 @@ export default function ExperiencePage() {
   const [selectedEntry, setSelectedEntry] = useState<CompanyEntry | null>(null)
 
   return (
-    <div className="section-bg min-h-screen relative overflow-hidden pt-[calc(62px+env(safe-area-inset-top))]">
+    <div className="section-bg min-h-screen relative overflow-hidden header-offset">
       <div className="geo-shape absolute top-[8%] right-[5%] w-24 h-24 opacity-[0.06] animate-float" />
       <div className="pulse-node absolute bottom-[20%] left-[6%]" />
 

@@ -125,7 +125,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="section-bg min-h-screen relative overflow-hidden pt-[calc(62px+env(safe-area-inset-top))] flex flex-col">
+    <div className="section-bg min-h-screen relative overflow-hidden header-offset flex flex-col">
       <div className="geo-shape absolute top-[8%] left-[5%] w-28 h-28 opacity-[0.06] animate-float" style={{ animationDelay: '1s' }} />
       <div className="geo-shape absolute bottom-[15%] right-[4%] w-20 h-20 opacity-[0.05] animate-float" />
       <div className="pulse-node absolute top-[40%] right-[12%]" />

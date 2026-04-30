@@ -12,6 +12,12 @@ export function useTypewriter(questions: readonly string[]): string {
   const qi = useRef(0)
   const ci = useRef(0)
   const deleting = useRef(false)
+  const questionsRef = useRef(questions)
+  const key = questions.join('|||')
+
+  useEffect(() => {
+    questionsRef.current = questions
+  })
 
   useEffect(() => {
     qi.current = 0
@@ -19,12 +25,13 @@ export function useTypewriter(questions: readonly string[]): string {
     deleting.current = false
     setText('')
 
-    if (questions.length === 0) return
+    if (questionsRef.current.length === 0) return
 
     let timeout: ReturnType<typeof setTimeout>
 
     function tick() {
-      const question = questions[qi.current]
+      const qs = questionsRef.current
+      const question = qs[qi.current % qs.length]
 
       if (!deleting.current) {
         ci.current += 1
@@ -42,7 +49,7 @@ export function useTypewriter(questions: readonly string[]): string {
 
         if (ci.current === 0) {
           deleting.current = false
-          qi.current = (qi.current + 1) % questions.length
+          qi.current = (qi.current + 1) % qs.length
           timeout = setTimeout(tick, PAUSE_BETWEEN)
           return
         }
@@ -52,7 +59,8 @@ export function useTypewriter(questions: readonly string[]): string {
 
     timeout = setTimeout(tick, 800)
     return () => clearTimeout(timeout)
-  }, [questions])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
 
   return text
 }

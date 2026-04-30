@@ -48,6 +48,7 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-tap-highlight-color: transparent;
   }
   html {
     background-color: #0a1628;
@@ -63,6 +64,12 @@
   }
 }
 
+/* ── Header offset utility ─────────────────────────────────── */
+/* Fallback of 44px covers WKWebView (Telegram iOS) where env() resolves to 0 */
+.header-offset {
+  padding-top: calc(62px + env(safe-area-inset-top, 44px));
+}
+
 /* ── Safe-area header fill ─────────────────────────────────── */
 /* Fills the notch/Dynamic Island zone with the same solid color as the
    navbar so the semi-transparent backdrop-blur doesn't leak content through */
@@ -73,7 +80,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: env(safe-area-inset-top);
+    height: env(safe-area-inset-top, 44px);
     background-color: #0a1628;
     z-index: 51;
     transition: background-color 0.3s ease;
@@ -251,3 +258,4 @@
 /* Navbar links */
 .light nav a.text-slate-400 { color: #475569; }
 .light nav a.text-white { color: #0f172a; }
+

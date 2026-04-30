@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="section-bg min-h-screen pt-[calc(62px+env(safe-area-inset-top))] flex items-center justify-center">
+    <div className="section-bg min-h-screen header-offset flex items-center justify-center">
       <div className="flex gap-1.5">
         {[0, 1, 2].map((i) => (
           <span

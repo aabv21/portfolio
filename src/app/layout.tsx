@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { cookies } from 'next/headers'
 import NextTopLoader from 'nextjs-toploader'
 import { Analytics } from '@vercel/analytics/next'
 import '@/app/globals.css'
@@ -49,9 +50,13 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const initialTheme = cookieStore.get('theme')?.value === 'light' ? 'light' : 'dark'
+  const initialLang = cookieStore.get('lang')?.value === 'es' ? 'es' : 'en'
+
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang={initialLang} className={initialTheme} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <script
@@ -61,8 +66,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${inter.variable} antialiased min-h-screen`}>
         <NextTopLoader color="#10B981" shadow="0 0 10px #10B981,0 0 5px #10B981" showSpinner={false} height={2} />
-        <ThemeProvider>
-          <LanguageProvider>
+        <ThemeProvider initialTheme={initialTheme}>
+          <LanguageProvider initialLang={initialLang}>
             <AppShell>{children}</AppShell>
           </LanguageProvider>
         </ThemeProvider>

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
 
 type Theme = 'dark' | 'light'
 
@@ -18,17 +18,8 @@ function applyTheme(t: Theme) {
   document.cookie = `theme=${t};path=/;max-age=31536000;SameSite=Lax;Secure`
 }
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark')
-
-  useEffect(() => {
-    const stored = document.cookie.match(/(?:^|; )theme=(dark|light)/)
-    if (stored) {
-      const saved = stored[1] as Theme
-      setTheme(saved)
-      applyTheme(saved)
-    }
-  }, [])
+export function ThemeProvider({ children, initialTheme = 'dark' }: { children: ReactNode; initialTheme?: Theme }) {
+  const [theme, setTheme] = useState<Theme>(initialTheme)
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
