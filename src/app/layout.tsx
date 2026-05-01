@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'Andrés Buelvas — Full Stack Engineer',
   description:
-    'Portfolio of Andrés Buelvas, Full Stack Engineer specializing in fintech, distributed systems and high-availability APIs. +7 years of experience.',
+    'Portfolio of Andrés Buelvas, Full Stack Engineer specializing in fintech, distributed systems, AI-powered pipelines and microservices architecture. 8+ years of experience.',
   keywords: ['Full Stack', 'Engineer', 'Fintech', 'Node.js', 'React', 'TypeScript'],
   authors: [{ name: 'Andrés Buelvas' }],
   openGraph: {
     title: 'Andrés Buelvas — Full Stack Engineer',
-    description: 'Full Stack Engineer with 7+ years building fintech products, distributed systems and high-availability APIs.',
+    description: 'Full Stack Engineer with 8+ years building fintech products, distributed systems, AI-powered pipelines and microservices architecture.',
     url: SITE_URL,
     siteName: 'Andrés Buelvas',
     type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Andrés Buelvas — Full Stack Engineer',
-    description: 'Full Stack Engineer with 7+ years building fintech products, distributed systems and high-availability APIs.',
+    description: 'Full Stack Engineer with 8+ years building fintech products, distributed systems, AI-powered pipelines and microservices architecture.',
   },
 }
 

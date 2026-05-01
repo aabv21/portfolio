@@ -102,7 +102,11 @@ export function Footer() {
             <div className="flex gap-2">
               {SOCIAL_LINKS.map(({ label, href, icon, download }) => {
                 const isMail = href.startsWith('mailto:')
-                const resolvedHref = label === 'LinkedIn' ? linkedInHref : href
+                const resolvedHref = label === 'LinkedIn'
+                  ? linkedInHref
+                  : label === 'CV'
+                    ? (lang === 'es' ? '/andres-buelvas-cv-es.pdf' : '/andres-buelvas-cv.pdf')
+                    : href
                 if (isMail) {
                   return (
                     <button

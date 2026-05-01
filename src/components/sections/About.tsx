@@ -13,7 +13,7 @@ const EDUCATION = [
   },
   {
     year: '2025',
-    title: { es: 'Diploma en Soft Skills', en: 'Soft Skills Diploma' },
+    title: { es: 'Diplomado en Arquitectura de Software y Cloud', en: 'Diploma in Software Architecture & Cloud' },
     school: 'Pontificia Universidad Javeriana',
   },
 ]
@@ -21,6 +21,7 @@ const EDUCATION = [
 export function About() {
   const { t, lang } = useLang()
   const { isDark } = useTheme()
+
   const yearsOfExperience = new Date().getFullYear() - CAREER_START_YEAR
 
   return (
@@ -52,7 +53,7 @@ export function About() {
             </div>
 
             <a
-              href="/andres-buelvas-cv.pdf"
+              href={lang === 'es' ? '/andres-buelvas-cv-es.pdf' : '/andres-buelvas-cv.pdf'}
               download
               target="_blank"
               rel="noopener noreferrer"

@@ -9,7 +9,6 @@ export const skills: SkillCategory[] = [
       { name: 'Next.js', icon: 'SiNextdotjs' },
       { name: 'TypeScript', icon: 'SiTypescript' },
       { name: 'Tailwind', icon: 'SiTailwindcss' },
-      { name: 'Framer Motion', icon: 'SiFramer' },
       { name: 'Remix', icon: 'SiRemix' },
       { name: 'Redux', icon: 'SiRedux' },
       { name: 'Shadcn/UI', icon: 'SiShadcnui' },
@@ -42,14 +41,25 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    label: 'AI & Tools',
+    label: 'AI & LLM',
     items: [
-      { name: 'Claude API', icon: 'SiAnthropic' },
+      { name: 'Claude', icon: 'SiAnthropic' },
+      { name: 'OpenAI', icon: 'SiOpenai' },
+      { name: 'LangChain', icon: 'SiLangchain' },
+      { name: 'Langfuse', icon: '' },
+      { name: 'MCP', icon: '' },
+    ],
+  },
+  {
+    label: 'Tools',
+    items: [
       { name: 'Git', icon: 'SiGit' },
       { name: 'GitHub', icon: 'SiGithub' },
       { name: 'Stripe', icon: 'SiStripe' },
-      { name: 'Zod', icon: 'SiZod' },
       { name: 'Vercel', icon: 'SiVercel' },
+      { name: 'Datadog', icon: 'SiDatadog' },
+      { name: 'Jest', icon: 'SiJest' },
+      { name: 'Playwright', icon: '' },
     ],
   },
 ]

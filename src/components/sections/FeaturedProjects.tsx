@@ -20,6 +20,17 @@ const TAG_CUSTOM_ICONS: Record<string, React.ComponentType<{ size: number; class
   AWS: FaAws,
 }
 
+function TagIcon({ tag, size }: { tag: string; size: number }) {
+  const Icon = TAG_CUSTOM_ICONS[tag] ?? (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null)
+  if (Icon) return <Icon size={size} className="text-emerald flex-shrink-0" />
+  const initials = tag.replace(/[^A-Za-z0-9]/g, '').slice(0, 2).toUpperCase()
+  return (
+    <span style={{ fontSize: size * 0.65, width: size, height: size }} className="rounded bg-emerald-subtle border border-emerald-border flex items-center justify-center text-emerald font-bold leading-none flex-shrink-0">
+      {initials}
+    </span>
+  )
+}
+
 const MAX_CLONES = 3
 
 function buildTrack(items: Project[]): Project[] {
@@ -88,17 +99,12 @@ function ProjectCard({
           {project.description[lang]}
         </p>
         <div className="flex flex-wrap gap-1.5">
-          {visibleTags.map((tag) => {
-            const Icon =
-              TAG_CUSTOM_ICONS[tag] ??
-              (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null)
-            return (
-              <span key={tag} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[0.7rem] text-slate-400">
-                {Icon && <Icon size={9} className="text-emerald" />}
-                {tag}
-              </span>
-            )
-          })}
+          {visibleTags.map((tag) => (
+            <span key={tag} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[0.7rem] text-slate-400">
+              <TagIcon tag={tag} size={9} />
+              {tag}
+            </span>
+          ))}
           {hiddenCount > 0 && (
             <button
               onTouchEnd={(e) => { e.preventDefault(); expand() }}

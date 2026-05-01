@@ -10,11 +10,14 @@ import { ExperienceModal } from '@/components/ui/experience-modal'
 import { cn, formatPeriod } from '@/lib/utils'
 import type { CompanyEntry } from '@/types'
 
-function DefaultTagIcon({ size, className }: { size: number; className: string }) {
+function TagIcon({ tag, size }: { tag: string; size: number }) {
+  const Icon = getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null
+  if (Icon) return <Icon size={size} className="text-emerald flex-shrink-0" />
+  const initials = tag.replace(/[^A-Za-z0-9]/g, '').slice(0, 2).toUpperCase()
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
-    </svg>
+    <span style={{ fontSize: size * 0.65, width: size, height: size }} className="rounded bg-emerald-subtle border border-emerald-border flex items-center justify-center text-emerald font-bold leading-none flex-shrink-0">
+      {initials}
+    </span>
   )
 }
 
@@ -27,21 +30,18 @@ function TagRow({ tags }: { tags: string[] }) {
     : 'bg-black/[0.06] border-black/[0.12] text-slate-500'
   return (
     <div className="flex flex-wrap gap-1.5">
-      {visibleTags.map((tag) => {
-        const Icon = (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null) ?? DefaultTagIcon
-        return (
-          <span
-            key={tag}
-            className={cn(
-              'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.68rem] text-slate-400',
-              isDark ? 'bg-white/5 border border-white/10' : 'bg-black/[0.04] border border-black/[0.1]',
-            )}
-          >
-            <Icon size={8} className="text-emerald" />
-            {tag}
-          </span>
-        )
-      })}
+      {visibleTags.map((tag) => (
+        <span
+          key={tag}
+          className={cn(
+            'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.68rem] text-slate-400',
+            isDark ? 'bg-white/5 border border-white/10' : 'bg-black/[0.04] border border-black/[0.1]',
+          )}
+        >
+          <TagIcon tag={tag} size={8} />
+          {tag}
+        </span>
+      ))}
       {hiddenCount > 0 && (
         <button
           onTouchEnd={(e) => { e.preventDefault(); expand() }}
@@ -92,18 +92,15 @@ function CompanyRow({
           <p className="text-[0.72rem] font-semibold text-emerald mt-0.5">{formatPeriod(entry.totalPeriod, lang)}</p>
           {/* Tags: visible on md+ inline in header */}
           <div className="hidden md:flex flex-wrap gap-1.5 mt-2">
-            {entry.tags.map((tag) => {
-              const Icon = (getIcon(TAG_ICONS[tag]) as React.ComponentType<{ size: number; className: string }> | null) ?? DefaultTagIcon
-              return (
+            {entry.tags.map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[0.68rem] text-slate-400"
                 >
-                  <Icon size={8} className="text-emerald" />
+                  <TagIcon tag={tag} size={8} />
                   {tag}
                 </span>
-              )
-            })}
+            ))}
           </div>
         </div>
         <button
