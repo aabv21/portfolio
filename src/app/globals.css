@@ -259,3 +259,11 @@
 .light nav a.text-slate-400 { color: #475569; }
 .light nav a.text-white { color: #0f172a; }
 
+/* Chat input — 16px floor prevents iOS auto-zoom on focus; placeholder matches */
+.chat-input { font-size: 0.8rem; color: #fff; }
+.chat-input::placeholder { font-size: 0.8rem; color: #94a3b8; }
+@media (max-width: 767px) {
+  .chat-input { font-size: 16px; }
+  .chat-input::placeholder { font-size: 16px; }
+}
+

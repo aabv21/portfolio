@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??
     '127.0.0.1'
-  if (!contactLimits(ip).allowed) {
+  if (process.env.RATE_LIMIT_DISABLED !== 'true' && !contactLimits(ip).allowed) {
     return NextResponse.json({ error: 'rate_limit' }, { status: 429 })
   }
 
