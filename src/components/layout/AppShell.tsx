@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { Navbar } from '@/components/layout/Navbar'
-import { SideNav } from '@/components/layout/SideNav'
-import { Footer } from '@/components/layout/Footer'
-import { ChatModal } from '@/components/modals/ChatModal'
-import { ChatProvider } from '@/context/ChatContext'
+import { Footer } from '@/components/layout/Footer';
+import { Navbar } from '@/components/layout/Navbar';
+import { SideNav } from '@/components/layout/SideNav';
+import { ChatModal } from '@/components/modals/ChatModal';
+import { ChatProvider } from '@/context/ChatContext';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const [chatOpen, setChatOpen] = useState(false)
-  const pathname = usePathname()
-  const openChat = () => setChatOpen(true)
+  const [chatOpen, setChatOpen] = useState(false);
+  const pathname = usePathname();
+  const openChat = () => setChatOpen(true);
 
   return (
     <ChatProvider openChat={openChat}>
@@ -21,5 +21,5 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Footer />
       <ChatModal open={chatOpen} onClose={() => setChatOpen(false)} />
     </ChatProvider>
-  )
+  );
 }

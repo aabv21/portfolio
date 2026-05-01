@@ -5,6 +5,7 @@ export const experience: CompanyEntry[] = [
     company: 'NextFaze',
     totalPeriod: 'Apr 2025 – Present',
     icon: '🤖',
+    logo: '/experience/nextfaze.png',
     tags: ['NestJS', 'FastAPI', 'LangChain', 'AWS', 'Claude'],
     description: {
       en: 'Backend engineering focused on AI-powered document intelligence and enterprise systems integration, working across LLM pipelines, OCR providers, and middleware automation.',
@@ -39,6 +40,7 @@ export const experience: CompanyEntry[] = [
     company: 'SmartHop',
     totalPeriod: 'Apr 2019 – Jan 2025',
     icon: '🚛',
+    logo: '/experience/smarthop.png',
     tags: ['Node.js', 'React', 'MongoDB', 'Redis', 'Stripe'],
     description: {
       en: 'Six years across three roles growing from engineer to tech lead, building a Fintech platform for trucking fleet management.',
@@ -132,6 +134,7 @@ export const experience: CompanyEntry[] = [
     company: 'CIDITEL-VE / Latinux Inc',
     totalPeriod: 'Jul 2018 – Apr 2019',
     icon: '🏢',
+    logo: '/experience/latinux.png',
     tags: ['Python', 'Web2py', 'Bootstrap'],
     description: {
       en: 'Backend development for academic systems at a Venezuelan technology company.',
@@ -162,6 +165,7 @@ export const experience: CompanyEntry[] = [
     company: 'Simon Bolivar University',
     totalPeriod: 'Apr 2018 – Jul 2018',
     icon: '🎓',
+    logo: '/experience/usb.png',
     tags: ['Python', 'Web2py', 'Bootstrap'],
     description: {
       en: "Support role developing internal academic management systems at Venezuela's top engineering university.",

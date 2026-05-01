@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { getIcon, TAG_ICONS } from '@/lib/icons'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
@@ -82,8 +83,15 @@ function CompanyRow({
         'flex items-center gap-4 p-5 border-b',
         isDark ? 'border-white/[0.06]' : 'border-black/[0.06]',
       )}>
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-[1.4rem] bg-emerald-subtle border border-emerald-border flex-shrink-0">
-          {entry.icon}
+        <div className={cn(
+          'w-11 h-11 rounded-xl flex items-center justify-center text-[1.4rem] border flex-shrink-0 overflow-hidden',
+          entry.logo ? 'bg-white border-white/20 p-1' : 'bg-emerald-subtle border-emerald-border',
+        )}>
+          {entry.logo ? (
+            <Image src={entry.logo} alt={entry.company} width={44} height={44} className="w-full h-full object-contain" />
+          ) : (
+            entry.icon
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <h2 className={cn('text-[0.95rem] font-bold leading-tight', isDark ? 'text-white' : 'text-slate-900')}>

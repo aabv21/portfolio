@@ -15,6 +15,7 @@ export interface CompanyEntry {
   company: string
   totalPeriod: string
   icon: string
+  logo?: string
   tags: string[]
   roles: WorkRole[]
   description?: { en: string; es: string }
