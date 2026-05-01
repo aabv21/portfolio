@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback, memo } from 'react'
+import { useState, useRef, useEffect, useCallback, memo, type TouchEvent } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -50,7 +50,6 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const bottomRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -68,8 +67,12 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const el = scrollAreaRef.current
+    if (!el) return
+    el.scrollTop = el.scrollHeight
   }, [messages, loading])
 
   useEffect(() => {
@@ -127,7 +130,10 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto"
         onClick={onClose}
-        onTouchMove={(e) => e.preventDefault()}
+        onTouchMove={(e: TouchEvent<HTMLDivElement>) => {
+          // Only block scroll on the backdrop itself, not when touch starts inside the panel
+          if (e.target === e.currentTarget) e.preventDefault()
+        }}
       />
 
       {/* Panel */}
@@ -164,7 +170,7 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 scroll-smooth">
+        <div ref={scrollAreaRef} className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3" style={{ overflowAnchor: 'none' }}>
           <div className="text-center">
             <span className="text-[0.65rem] text-slate-600 border border-white/[0.06] px-2 py-0.5 rounded-full">
               {t.chat.start}
@@ -212,7 +218,7 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
             <p className="text-[0.72rem] text-error text-center px-2">{error}</p>
           )}
 
-          <div ref={bottomRef} />
+          <div style={{ overflowAnchor: 'auto' }} />
         </div>
 
         {/* Quick chips */}
@@ -232,22 +238,23 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
         )}
 
         {/* Input */}
-        <div className="border-t border-white/[0.07] px-3 py-3 flex gap-2 items-end flex-shrink-0">
+        <div className="border-t border-white/[0.07] px-3 pt-3 pb-2 flex flex-col gap-1.5 flex-shrink-0">
+          <div className="flex gap-2 items-end">
           <textarea
             ref={textareaRef}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value.slice(0, 800))}
             onKeyDown={handleKeyDown}
             placeholder={t.chat.placeholder}
             rows={1}
             disabled={loading}
             className={cn(
               'flex-1 resize-none rounded-xl bg-white/5 border border-white/10 px-3 py-2',
-              'text-white placeholder:text-slate-500',
+              'text-white placeholder:text-slate-500 chat-input',
               'outline-none focus:outline-none focus:ring-0 focus:border-emerald-border',
-              'transition-colors max-h-28 overflow-y-auto disabled:opacity-60',
+              'transition-colors max-h-24 overflow-y-auto disabled:opacity-60',
             )}
-            style={{ lineHeight: '1.5', fontSize: '16px' }}
+            style={{ lineHeight: '1.4' }}
           />
           <Button
             variant="emerald"
@@ -260,6 +267,15 @@ export function ChatModal({ open, onClose }: ChatModalProps) {
               <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
             </svg>
           </Button>
+          </div>
+          {input.length > 600 && (
+            <p className={cn(
+              'text-right text-[0.62rem] tabular-nums transition-colors',
+              input.length >= 800 ? 'text-red-400' : 'text-slate-500',
+            )}>
+              {input.length}/800
+            </p>
+          )}
         </div>
 
         {/* Footer hint */}

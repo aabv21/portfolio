@@ -108,7 +108,7 @@ async function runAgentLoop(userMessage: string): Promise<string> {
   for (let turn = 0; turn < 4; turn++) {
     const response = await anthropic.messages.create({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 400,
+      max_tokens: 600,
       system: SYSTEM_PROMPT,
       tools: TOOLS,
       messages,
@@ -144,7 +144,14 @@ async function runAgentLoop(userMessage: string): Promise<string> {
     break
   }
 
-  return ''
+  // Fallback: one final call with no tools to force a text response
+  const fallback = await anthropic.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 600,
+    system: SYSTEM_PROMPT,
+    messages,
+  })
+  return fallback.content.find((b) => b.type === 'text')?.text ?? ''
 }
 
 export async function POST(req: NextRequest) {
@@ -152,7 +159,7 @@ export async function POST(req: NextRequest) {
     req.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??
     '127.0.0.1'
-  if (!chatLimits(ip).allowed) {
+  if (process.env.RATE_LIMIT_DISABLED !== 'true' && !chatLimits(ip).allowed) {
     return NextResponse.json({ error: 'rate_limit' }, { status: 429 })
   }
 
