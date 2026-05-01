@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 export function Hero() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const { openChat } = useChat()
   const { isDark } = useTheme()
   const typewriterText = useTypewriter(t.hero.typewriterQuestions)
@@ -76,7 +76,7 @@ export function Hero() {
             asChild size="lg" variant="ghost"
             className={isDark ? '' : 'border-slate-300 text-slate-700 hover:bg-black/5 hover:text-slate-900'}
           >
-            <a href="/andres-buelvas-cv.pdf" download target="_blank" rel="noopener noreferrer">{t.hero.cv}</a>
+            <a href={lang === 'es' ? '/andres-buelvas-cv-es.pdf' : '/andres-buelvas-cv.pdf'} download target="_blank" rel="noopener noreferrer">{t.hero.cv}</a>
           </Button>
         </div>
 

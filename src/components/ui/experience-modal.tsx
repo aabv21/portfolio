@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
+import Image from 'next/image'
 import { getIcon, TAG_ICONS } from '@/lib/icons'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
@@ -61,8 +62,15 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
           'flex items-center gap-3 px-4 py-3 border-b flex-shrink-0',
           isDark ? 'border-white/[0.06]' : 'border-black/[0.06]',
         )}>
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg bg-emerald-subtle border border-emerald-border flex-shrink-0">
-            {entry.icon}
+          <div className={cn(
+            'w-9 h-9 rounded-lg flex items-center justify-center text-lg border flex-shrink-0 overflow-hidden',
+            entry.logo ? 'bg-white border-white/20 p-1' : 'bg-emerald-subtle border-emerald-border',
+          )}>
+            {entry.logo ? (
+              <Image src={entry.logo} alt={entry.company} width={36} height={36} className="w-full h-full object-contain" />
+            ) : (
+              entry.icon
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <h2 className={cn('text-[0.95rem] font-extrabold leading-tight truncate', isDark ? 'text-white' : 'text-slate-900')}>

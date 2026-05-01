@@ -2,30 +2,35 @@ import type { CompanyEntry } from '@/types'
 
 export const experience: CompanyEntry[] = [
   {
-    company: 'Juristat',
-    totalPeriod: 'May 2025 – Sep 2025',
-    icon: '⚖️',
-    tags: ['TypeScript', 'Remix', 'PostgreSQL', 'TailwindCSS'],
+    company: 'NextFaze',
+    totalPeriod: 'Apr 2025 – Present',
+    icon: '🤖',
+    logo: '/experience/nextfaze.png',
+    tags: ['NestJS', 'FastAPI', 'LangChain', 'AWS', 'Claude'],
     description: {
-      en: 'Frontend engineering focused on high-volume data tooling and reusable UI components for a legal analytics platform.',
-      es: 'Ingeniería frontend enfocada en herramientas de datos de alto volumen y componentes UI reutilizables para una plataforma de análisis legal.',
+      en: 'Backend engineering focused on AI-powered document intelligence and enterprise systems integration, working across LLM pipelines, OCR providers, and middleware automation.',
+      es: 'Ingeniería backend enfocada en inteligencia documental con IA e integración de sistemas empresariales, trabajando en pipelines LLM, proveedores OCR y automatización middleware.',
     },
     roles: [
       {
-        period: 'May 2025 – Sep 2025',
-        title: { en: 'Frontend Engineer', es: 'Frontend Engineer' },
+        period: 'Apr 2025 – Present',
+        title: { en: 'Backend Engineer', es: 'Backend Engineer' },
         responsibilities: [
           {
-            en: 'Optimized high-volume data queries using synchronization and caching strategies',
-            es: 'Optimicé consultas de datos de alto volumen usando estrategias de sincronización y caché',
+            en: 'Designed, implemented and delivered the AR System — a middleware integration between ServiceChannel and FSG automating the full work order lifecycle (requests, responses, invoicing, notifications)',
+            es: 'Diseñé, implementé y entregué el AR System — una integración middleware entre ServiceChannel y FSG que automatiza el ciclo de vida completo de órdenes de trabajo (solicitudes, respuestas, facturación, notificaciones)',
           },
           {
-            en: 'Built data visualizations (charts, tables, reports) with Remix',
-            es: 'Desarrollé visualizaciones de datos (gráficos, tablas, reportes) con Remix',
+            en: 'Led the refactoring, implementation, testing and maintenance of the Document Parser, enabling intelligent extraction, detection and classification of 18+ document types for ERP client integrations',
+            es: 'Lideré la refactorización, implementación, pruebas y mantenimiento del Document Parser, habilitando extracción, detección y clasificación inteligente de más de 18 tipos de documentos para integraciones con clientes ERP',
           },
           {
-            en: 'Created a reusable inline filter with Shadcn/UI + Tailwind supporting multiple data types across the app',
-            es: 'Creé un filtro inline reutilizable con Shadcn/UI + Tailwind para múltiples tipos de datos en toda la app',
+            en: 'Engineered integrations with AI/OCR providers (Datalab, DeepSeek, Mistral) to automate document information extraction from images and PDFs',
+            es: 'Desarrollé integraciones con proveedores de IA/OCR (Datalab, DeepSeek, Mistral) para automatizar la extracción de información documental desde imágenes y PDFs',
+          },
+          {
+            en: 'Served as primary decision-maker for AI model and provider selection, evaluating Claude, GPT, Mistral and DeepSeek against business constraints, cost and accuracy requirements',
+            es: 'Actué como principal tomador de decisiones en la selección de modelos y proveedores de IA, evaluando Claude, GPT, Mistral y DeepSeek según restricciones del modelo de negocio, costo y precisión',
           },
         ],
       },
@@ -35,6 +40,7 @@ export const experience: CompanyEntry[] = [
     company: 'SmartHop',
     totalPeriod: 'Apr 2019 – Jan 2025',
     icon: '🚛',
+    logo: '/experience/smarthop.png',
     tags: ['Node.js', 'React', 'MongoDB', 'Redis', 'Stripe'],
     description: {
       en: 'Six years across three roles growing from engineer to tech lead, building a Fintech platform for trucking fleet management.',
@@ -42,61 +48,61 @@ export const experience: CompanyEntry[] = [
     },
     roles: [
       {
-        period: 'Feb 2022 – Jan 2025',
+        period: 'Feb 2021 – Jan 2025',
         title: {
           en: 'Software Engineer IC5 / Engineering Manager',
           es: 'Software Engineer IC5 / Engineering Manager',
         },
         responsibilities: [
           {
-            en: 'Led a team of up to 4 developers as junior technical leader, designing and maintaining Fintech modules (invoices, payroll, wallet, fuel, billing)',
-            es: 'Lideré un equipo de hasta 4 desarrolladores como líder técnico junior, diseñando y manteniendo módulos Fintech (facturas, nómina, wallet, combustible, facturación)',
+            en: 'Led a fintech engineering team that scaled from 1 to 4 developers, designing and delivering modules for invoicing, payroll, wallets, fuel and billing',
+            es: 'Lideré un equipo de ingeniería fintech que escaló de 1 a 4 desarrolladores, diseñando y entregando módulos de facturación, nómina, billeteras, combustible y pagos',
           },
           {
-            en: 'Created SmartPay — a secure ACH-based funding mechanism for user payments',
-            es: 'Creé SmartPay — un mecanismo de financiamiento seguro basado en ACH para pagos de usuarios',
+            en: 'Co-designed and implemented SmartPay — an ACH-based payment mechanism serving 30–50 active SaaS clients',
+            es: 'Codiseñé e implementé SmartPay — un mecanismo de pago basado en ACH que sirve a 30–50 clientes SaaS activos',
           },
           {
-            en: 'Integrated UNIT API for bank account creation, debit card generation and ACH transfers with 2-Factor security',
-            es: 'Integré UNIT API para creación de cuentas bancarias, generación de tarjetas débito y transferencias ACH con seguridad 2-Factor',
+            en: 'Implemented 2FA enforcement as a security requirement for UNIT API compliance, including bank account creation, debit card generation and ACH/internal fund transfers',
+            es: 'Implementé autenticación en dos pasos (2FA) como requisito de seguridad para el cumplimiento de la API de UNIT, incluyendo creación de cuentas bancarias, generación de tarjetas débito y transferencias ACH/internas',
           },
           {
-            en: 'Built Onramp integration for fuel card generation and transaction visualization',
-            es: 'Implementé integración Onramp para generación de tarjetas de combustible y visualización de transacciones',
+            en: 'Architected a double-entry ledger system accurately recording income and expenses across client portfolios handling up to 70 records per carrier',
+            es: 'Arquiteté un sistema de libro mayor de doble entrada que registra con precisión ingresos y gastos en carteras de clientes con hasta 70 registros por transportista',
           },
           {
-            en: 'Used GraphQL to map gas stations via Google Maps and Trimble Maps API within a distance radius',
-            es: 'Usé GraphQL para mapear gasolineras vía Google Maps y Trimble Maps API dentro de un radio de distancia',
+            en: 'Led Payroll V2 redesign with the full team, delivering the module within a single quarter with on-demand income/expense generation and PDF reporting',
+            es: 'Lideré el rediseño de Payroll V2 con el equipo completo, entregando el módulo en un solo trimestre con generación de ingresos/gastos bajo demanda y reportes en PDF',
           },
           {
-            en: 'Deployed and maintained Payroll V2 with on-demand PDF report generation',
-            es: 'Desplegué y mantuve Payroll V2 con generación de reportes PDF bajo demanda',
+            en: 'Integrated Onramp for fuel card generation and transaction visualization',
+            es: 'Integré Onramp para la generación de tarjetas de combustible y visualización de transacciones',
           },
           {
-            en: 'Created a double-entry ledger system following standard accounting principles',
-            es: 'Creé un sistema de libro contable de doble entrada siguiendo principios contables estándar',
+            en: 'Implemented gas station geolocation mapping using GraphQL, Google Maps and Trimble Maps API',
+            es: 'Implementé mapeo de geolocalización de gasolineras usando GraphQL, Google Maps y Trimble Maps API',
           },
         ],
       },
       {
-        period: 'Aug 2020 – Feb 2022',
+        period: 'Aug 2020 – Feb 2021',
         title: { en: 'Senior Full Stack Engineer', es: 'Senior Full Stack Engineer' },
         responsibilities: [
           {
-            en: 'Sole developer responsible for all e-commerce, fuel and insurance products',
-            es: 'Único desarrollador responsable de todos los productos de e-commerce, combustible y seguros',
+            en: 'Sole developer responsible for all e-commerce, fuel and insurance products across the platform',
+            es: 'Desarrollador único responsable de todos los productos de e-commerce, combustible y seguros en la plataforma',
           },
           {
-            en: 'Integrated EFS/WEX API via SOAP for fuel card generation and transaction visualization (OOP architecture)',
-            es: 'Integré EFS/WEX API vía SOAP para generación de tarjetas de combustible y visualización de transacciones (arquitectura OOP)',
+            en: 'Integrated EFS/WEX API via SOAP for fuel card generation and transaction tracking, serving 5–10 users under an OOP architecture',
+            es: 'Integré la API EFS/WEX vía SOAP para generación de tarjetas de combustible y seguimiento de transacciones, atendiendo 5–10 usuarios bajo arquitectura OOP',
           },
           {
-            en: 'Integrated PLAID for secure OAuth bank authentication handling sensitive banking information',
-            es: 'Integré PLAID para autenticación bancaria segura OAuth manejando información bancaria sensible',
+            en: 'Integrated Plaid OAuth to enable secure bank authentication across 20–30 connected banking institutions',
+            es: 'Integré Plaid OAuth para habilitar autenticación bancaria segura en 20–30 instituciones bancarias conectadas',
           },
           {
-            en: 'Designed, implemented and maintained Payroll V1 infrastructure',
-            es: 'Diseñé, implementé y mantuve la infraestructura de Payroll V1',
+            en: 'Designed and delivered Payroll V1 infrastructure end-to-end in under 3 months',
+            es: 'Diseñé y entregué la infraestructura de Payroll V1 de principio a fin en menos de 3 meses',
           },
         ],
       },
@@ -105,20 +111,20 @@ export const experience: CompanyEntry[] = [
         title: { en: 'Full Stack Engineer', es: 'Full Stack Engineer' },
         responsibilities: [
           {
-            en: 'Built a dynamic profit dashboard using Chart.js and React with interactive visualizations',
-            es: 'Construí un dashboard dinámico de rentabilidad con Chart.js y React con visualizaciones interactivas',
+            en: 'Built an interactive profit dashboard using Chart.js and React for an early client base of 5–15 active accounts',
+            es: 'Construí un dashboard de ganancias interactivo usando Chart.js y React para una base de clientes inicial de 5–15 cuentas activas',
           },
           {
-            en: 'Integrated Stripe API for subscription plans and secure payment method management',
-            es: 'Integré Stripe API para planes de suscripción y gestión segura de métodos de pago',
+            en: 'Integrated Stripe for subscription plan management and secure payment handling across 10–100 active users including free trial conversions',
+            es: 'Integré Stripe para gestión de planes de suscripción y manejo seguro de pagos con 10–100 usuarios activos incluyendo conversiones desde prueba gratuita',
           },
           {
-            en: 'Implemented geolocation queries using Redis set theory for efficient resource retrieval',
-            es: 'Implementé consultas de geolocalización usando teoría de conjuntos en Redis para recuperación eficiente de recursos',
+            en: 'Implemented geolocation queries with Redis set operations for efficient resource retrieval',
+            es: 'Implementé consultas de geolocalización con operaciones de conjuntos en Redis para recuperación eficiente de recursos',
           },
           {
-            en: 'Built email sending pipeline using Mandrill and Mailchimp',
-            es: 'Construí pipeline de envío de correos usando Mandrill y Mailchimp',
+            en: 'Developed transactional email flows using Mandrill and Mailchimp',
+            es: 'Desarrollé flujos de email transaccional usando Mandrill y Mailchimp',
           },
         ],
       },
@@ -128,6 +134,7 @@ export const experience: CompanyEntry[] = [
     company: 'CIDITEL-VE / Latinux Inc',
     totalPeriod: 'Jul 2018 – Apr 2019',
     icon: '🏢',
+    logo: '/experience/latinux.png',
     tags: ['Python', 'Web2py', 'Bootstrap'],
     description: {
       en: 'Backend development for academic systems at a Venezuelan technology company.',
@@ -139,16 +146,16 @@ export const experience: CompanyEntry[] = [
         title: { en: 'Backend Engineer', es: 'Ingeniero Backend' },
         responsibilities: [
           {
-            en: 'Developed the MECE system — an alternative admission method for Universidad Simón Bolívar',
-            es: 'Desarrollé el sistema MECE — un método alternativo de admisión para la Universidad Simón Bolívar',
+            en: 'Built the MECE system — an alternative admission pathway for students applying to Simon Bolivar University',
+            es: 'Construí el sistema MECE — una vía alternativa de admisión para aspirantes a la Universidad Simón Bolívar',
           },
           {
-            en: 'Built an online academic exam system with per-category time limits (numerical and verbal ability)',
-            es: 'Construí un sistema de examen académico en línea con límites de tiempo por categoría (habilidad numérica y verbal)',
+            en: 'Implemented a timed online academic exam platform with separate categories for numerical and verbal ability',
+            es: 'Implementé una plataforma de exámenes académicos en línea con tiempo límite con categorías separadas de habilidad numérica y verbal',
           },
           {
-            en: 'Implemented teacher-initiated exam flow with real-time result feedback upon completion',
-            es: 'Implementé flujo de examen iniciado por el profesor con retroalimentación de resultados en tiempo real al completarse',
+            en: 'Enabled real-time exam control for teachers, including session initiation and instant results feedback',
+            es: 'Habilité control de exámenes en tiempo real para docentes, incluyendo inicio de sesión y retroalimentación instantánea de resultados',
           },
         ],
       },
@@ -158,9 +165,10 @@ export const experience: CompanyEntry[] = [
     company: 'Simon Bolivar University',
     totalPeriod: 'Apr 2018 – Jul 2018',
     icon: '🎓',
+    logo: '/experience/usb.png',
     tags: ['Python', 'Web2py', 'Bootstrap'],
     description: {
-      en: 'Support role developing internal academic management systems at Venezuela\'s top engineering university.',
+      en: "Support role developing internal academic management systems at Venezuela's top engineering university.",
       es: 'Rol de soporte desarrollando sistemas internos de gestión académica en la principal universidad de ingeniería de Venezuela.',
     },
     roles: [
@@ -169,12 +177,12 @@ export const experience: CompanyEntry[] = [
         title: { en: 'Support Assistant', es: 'Asistente de Soporte' },
         responsibilities: [
           {
-            en: 'Developed SisPIO — a system to help students strengthen skills for university admission exams',
-            es: 'Desarrollé SisPIO — un sistema para ayudar a estudiantes a fortalecer habilidades para exámenes de admisión universitaria',
+            en: 'Built SisPIO — a platform that helped students prepare for university entrance exams',
+            es: 'Construí SisPIO — una plataforma que ayudó a estudiantes a prepararse para los exámenes de admisión universitaria',
           },
           {
-            en: 'Built administrative tooling for student tracking, control and PIO program activities',
-            es: 'Construí herramientas administrativas para seguimiento de estudiantes, control y actividades del programa PIO',
+            en: 'Supported administrative operations including student tracking and PIO program activity management',
+            es: 'Apoyé operaciones administrativas incluyendo seguimiento de estudiantes y gestión de actividades del programa PIO',
           },
         ],
       },

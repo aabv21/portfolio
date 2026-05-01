@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
 }
 
-export const CAREER_START_YEAR = 2018
+export const CAREER_START_YEAR = 2019
 
 const EN_TO_ES_MONTHS: Record<string, string> = {
   Jan: 'Ene', Feb: 'Feb', Mar: 'Mar', Apr: 'Abr',

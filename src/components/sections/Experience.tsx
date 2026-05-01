@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { getIcon, TAG_ICONS } from '@/lib/icons'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
@@ -43,8 +44,15 @@ function WorkCard({ entry }: { entry: CompanyEntry }) {
   return (
     <div className="glass-card p-6 h-full flex flex-col gap-4">
       <div className="flex items-start gap-4">
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-[1.4rem] bg-emerald-subtle border border-emerald-border flex-shrink-0">
-          {entry.icon}
+        <div className={cn(
+          'w-11 h-11 rounded-xl flex items-center justify-center text-[1.4rem] border flex-shrink-0 overflow-hidden',
+          entry.logo ? 'bg-white border-white/20 p-1' : 'bg-emerald-subtle border-emerald-border',
+        )}>
+          {entry.logo ? (
+            <Image src={entry.logo} alt={entry.company} width={44} height={44} className="w-full h-full object-contain" />
+          ) : (
+            entry.icon
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <span className="text-[0.72rem] font-semibold text-emerald uppercase tracking-wide">

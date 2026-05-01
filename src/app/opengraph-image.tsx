@@ -142,8 +142,8 @@ export default function Image() {
             maxWidth: 680,
           }}
         >
-          7+ years building fintech products, distributed systems and high-availability APIs.
-          Node.js · React · TypeScript · AWS
+          8+ years building fintech platforms, distributed systems and AI-powered pipelines.
+          Node.js · React · TypeScript · Python · AWS
         </div>
       </div>
     ),
