@@ -82,7 +82,7 @@ export function Hero() {
 
         {/* Tech badges */}
         <div className="flex flex-wrap justify-center gap-2">
-          {['Node.js', 'React', 'TypeScript', 'Python', 'AWS'].map((tech) => (
+          {['Node.js', 'React', 'TypeScript', 'Python', 'AWS', 'AI · LLM'].map((tech) => (
             <span
               key={tech}
               className="px-3 py-1 rounded-full text-[0.72rem] font-medium text-slate-400 bg-white/5 border border-white/10"

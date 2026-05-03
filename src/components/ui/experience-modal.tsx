@@ -73,7 +73,7 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className={cn('text-[0.95rem] font-extrabold leading-tight truncate', isDark ? 'text-white' : 'text-slate-900')}>
+            <h2 className={cn('text-[0.95rem] font-extrabold leading-tight truncate pr-2', isDark ? 'text-white' : 'text-slate-900')}>
               {entry.company}
             </h2>
             <p className="text-[0.68rem] text-emerald font-semibold">{formatPeriod(entry.totalPeriod, lang)}</p>
@@ -82,7 +82,7 @@ export function ExperienceModal({ entry, onClose }: ExperienceModalProps) {
             onClick={onClose}
             aria-label={t.experience.close}
             className={cn(
-              'flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors',
+              'flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors self-start mt-0.5',
               isDark
                 ? 'bg-black/20 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
                 : 'bg-black/5 border border-black/10 text-slate-500 hover:bg-black/10 hover:text-slate-900',
