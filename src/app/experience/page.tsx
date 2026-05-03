@@ -115,7 +115,8 @@ function CompanyRow({
           onClick={() => onSelect(entry)}
           className="flex-shrink-0 px-3 py-1.5 rounded-lg text-[0.75rem] font-semibold bg-emerald-subtle border border-emerald-border text-emerald hover:bg-emerald/20 transition-colors"
         >
-          {t.experience.viewDetails}
+          <span className="md:hidden">{lang === 'es' ? 'Detalles' : 'Details'}</span>
+          <span className="hidden md:inline">{t.experience.viewDetails}</span>
         </button>
       </div>
 

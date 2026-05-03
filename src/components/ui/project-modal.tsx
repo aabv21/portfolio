@@ -67,23 +67,23 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       >
         {/* ── Header ── */}
         <div className={cn(
-          'flex gap-5 items-stretch p-6 border-b',
+          'flex gap-4 items-start p-4 md:p-6 border-b',
           isDark ? 'border-white/[0.06]' : 'border-black/[0.06]',
         )}>
           {/* inline image card */}
           {project.image ? (
-            <div className="relative w-[160px] min-h-[110px] flex-shrink-0 rounded-xl overflow-hidden border border-white/10 shadow-lg">
+            <div className="relative w-[90px] h-[65px] md:w-[160px] md:min-h-[110px] flex-shrink-0 rounded-xl overflow-hidden border border-white/10 shadow-lg">
               <Image
                 src={project.image}
                 alt={project.name}
                 fill
-                sizes="160px"
+                sizes="(max-width: 768px) 90px, 160px"
                 className="object-cover object-top"
               />
             </div>
           ) : (
             <div
-              className="w-[160px] min-h-[110px] flex-shrink-0 rounded-xl border border-white/10 shadow-lg flex items-center justify-center"
+              className="w-[90px] h-[65px] md:w-[160px] md:min-h-[110px] flex-shrink-0 rounded-xl border border-white/10 shadow-lg flex items-center justify-center"
               style={{ background: project.gradient }}
             >
               <span className="text-[0.55rem] text-white/30 font-semibold text-center px-2">{project.name}</span>
@@ -97,7 +97,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 Featured
               </span>
             )}
-            <h2 className={cn('text-[1.15rem] font-extrabold leading-tight', isDark ? 'text-white' : 'text-slate-900')}>
+            <h2 className={cn('text-[1rem] md:text-[1.15rem] font-extrabold leading-tight pr-2', isDark ? 'text-white' : 'text-slate-900')}>
               {project.name}
             </h2>
             {project.role && (
@@ -139,7 +139,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             onClick={onClose}
             aria-label={t.projects.close}
             className={cn(
-              'w-7 h-7 rounded-full flex items-center justify-center transition-colors flex-shrink-0',
+              'w-7 h-7 rounded-full flex items-center justify-center transition-colors flex-shrink-0 self-start',
               isDark
                 ? 'bg-black/20 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
                 : 'bg-black/5 border border-black/10 text-slate-500 hover:bg-black/10 hover:text-slate-900',

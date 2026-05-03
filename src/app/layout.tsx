@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
-import NextTopLoader from 'nextjs-toploader'
 import { Analytics } from '@vercel/analytics/next'
+import { TopLoader } from '@/components/layout/TopLoader'
 import '@/app/globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
 import { ThemeProvider } from '@/context/ThemeContext'
@@ -65,7 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className={`${inter.variable} antialiased min-h-screen`}>
-        <NextTopLoader color="#10B981" shadow="0 0 10px #10B981,0 0 5px #10B981" showSpinner={false} height={2} />
+        <TopLoader />
         <ThemeProvider initialTheme={initialTheme}>
           <LanguageProvider initialLang={initialLang}>
             <AppShell>{children}</AppShell>
