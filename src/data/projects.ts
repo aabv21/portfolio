@@ -2,6 +2,36 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
   {
+    name: 'Document Parser',
+    description: {
+      en: 'AI-powered document processing pipeline supporting 18+ document types using a 10-stage orchestration architecture, hybrid LLM classification and a self-training loop with LLM-as-Judge evaluation.',
+      es: 'Pipeline de procesamiento documental con IA que soporta 18+ tipos de documentos usando una arquitectura de orquestación de 10 etapas, clasificación LLM híbrida y un bucle de auto-entrenamiento con evaluación LLM-as-Judge.',
+    },
+    tags: ['Python', 'FastAPI', 'OpenAI', 'Claude', 'LangChain', 'Langfuse', 'AWS', 'Docker'],
+    featured: true,
+    gradient: 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)',
+    challenge: {
+      en: 'Manual document processing created bottlenecks and errors across 18 document types. Classification accuracy on complex multi-document PDFs was the core technical challenge.',
+      es: 'El procesamiento manual de documentos generaba cuellos de botella y errores en más de 18 tipos de documentos. La precisión de clasificación en PDFs complejos multi-documento era el desafío técnico central.',
+    },
+    results: [
+      {
+        en: 'Hybrid LLM classification combining universal and binary classifiers achieving over 90% accuracy on complex multi-document PDFs',
+        es: 'Clasificación LLM híbrida combinando clasificadores universales y binarios logrando más del 90% de precisión en PDFs complejos de múltiples documentos',
+      },
+      {
+        en: 'Bidirectional graph-based algorithm to detect and link supporting documents across PDF pages with conflict resolution and full retry/reclassification flow',
+        es: 'Algoritmo bidireccional basado en grafos para detectar y enlazar documentos de soporte entre páginas de PDF con resolución de conflictos y flujo completo de reintentos/reclasificación',
+      },
+      {
+        en: 'AWS Lambda email ingestion pipeline (SES → S3 → Parser API) and self-training loop with Langfuse datasets and automated prompt experimentation',
+        es: 'Pipeline de ingesta de emails vía AWS Lambda (SES → S3 → Parser API) y bucle de auto-entrenamiento con datasets de Langfuse y experimentación automática de prompts',
+      },
+    ],
+    role: { en: 'Backend Engineer', es: 'Ingeniero Backend' },
+    period: '2024 – Present',
+  },
+  {
     name: 'EzzyGas',
     description: {
       en: 'Fuel management and fintech platform built as a multi-app monorepo (backend, mobile, admin web, station gateway) with a multi-tenant financial system, real-time hardware communication and full cloud infrastructure on AWS.',
@@ -31,36 +61,6 @@ export const projects: Project[] = [
     ],
     role: { en: 'Full Stack Engineer', es: 'Full Stack Engineer' },
     period: '2023 – Present',
-  },
-  {
-    name: 'Document Parser',
-    description: {
-      en: 'AI-powered document processing pipeline supporting 18+ document types using a 10-stage orchestration architecture, hybrid LLM classification and a self-training loop with LLM-as-Judge evaluation.',
-      es: 'Pipeline de procesamiento documental con IA que soporta 18+ tipos de documentos usando una arquitectura de orquestación de 10 etapas, clasificación LLM híbrida y un bucle de auto-entrenamiento con evaluación LLM-as-Judge.',
-    },
-    tags: ['Python', 'FastAPI', 'OpenAI', 'Claude', 'LangChain', 'Langfuse', 'AWS', 'Docker'],
-    featured: true,
-    gradient: 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)',
-    challenge: {
-      en: 'Manual document processing created bottlenecks and errors across 18 document types. Classification accuracy on complex multi-document PDFs was the core technical challenge.',
-      es: 'El procesamiento manual de documentos generaba cuellos de botella y errores en más de 18 tipos de documentos. La precisión de clasificación en PDFs complejos multi-documento era el desafío técnico central.',
-    },
-    results: [
-      {
-        en: 'Hybrid LLM classification combining universal and binary classifiers achieving over 90% accuracy on complex multi-document PDFs',
-        es: 'Clasificación LLM híbrida combinando clasificadores universales y binarios logrando más del 90% de precisión en PDFs complejos de múltiples documentos',
-      },
-      {
-        en: 'Bidirectional graph-based algorithm to detect and link supporting documents across PDF pages with conflict resolution and full retry/reclassification flow',
-        es: 'Algoritmo bidireccional basado en grafos para detectar y enlazar documentos de soporte entre páginas de PDF con resolución de conflictos y flujo completo de reintentos/reclasificación',
-      },
-      {
-        en: 'AWS Lambda email ingestion pipeline (SES → S3 → Parser API) and self-training loop with Langfuse datasets and automated prompt experimentation',
-        es: 'Pipeline de ingesta de emails vía AWS Lambda (SES → S3 → Parser API) y bucle de auto-entrenamiento con datasets de Langfuse y experimentación automática de prompts',
-      },
-    ],
-    role: { en: 'Backend Engineer', es: 'Ingeniero Backend' },
-    period: '2024 – Present',
   },
   {
     name: 'SmartHop Fintech',
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     period: '2023 – 2024',
   },
   {
-    name: 'Developer Portfolio',
+    name: 'Personal Portfolio with AI Assistant',
     description: {
       en: 'Personal portfolio built with Next.js 15 App Router, hybrid SSR/CSR architecture, AI chat assistant powered by Claude Haiku with tool-calling, bilingual support (ES/EN) and custom design system.',
       es: 'Portafolio personal construido con Next.js 15 App Router, arquitectura híbrida SSR/CSR, asistente de chat con IA impulsado por Claude Haiku con tool-calling, soporte bilingüe (ES/EN) y sistema de diseño personalizado.',
