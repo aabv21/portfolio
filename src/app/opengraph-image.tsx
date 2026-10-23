@@ -100,7 +100,7 @@ export default function Image() {
               textTransform: 'uppercase',
             }}
           >
-            Available · Full Time / Part Time
+            Available for freelance projects
           </span>
         </div>
 
