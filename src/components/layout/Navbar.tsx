@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 
 const PAGE_LINKS = [
   { labelKey: 'home' as const, href: '/' },
+  { labelKey: 'services' as const, href: '/#servicios' },
   { labelKey: 'experience' as const, href: '/experience' },
   { labelKey: 'projects' as const, href: '/projects' },
   { labelKey: 'contact' as const, href: '/contact' },

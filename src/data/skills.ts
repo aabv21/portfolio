@@ -3,7 +3,7 @@ import type { SkillCategory } from '@/types'
 
 export const skills: SkillCategory[] = [
   {
-    label: 'Frontend',
+    label: { en: 'Frontend', es: 'Frontend' },
     items: [
       { name: 'React', icon: 'SiReact' },
       { name: 'Next.js', icon: 'SiNextdotjs' },
@@ -15,7 +15,7 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    label: 'Backend',
+    label: { en: 'Backend', es: 'Backend' },
     items: [
       { name: 'Node.js', icon: 'SiNodedotjs' },
       { name: 'NestJS', icon: 'SiNestjs' },
@@ -28,7 +28,7 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    label: 'Infrastructure & DB',
+    label: { en: 'Infrastructure & DB', es: 'Infraestructura y BD' },
     items: [
       { name: 'PostgreSQL', icon: 'SiPostgresql' },
       { name: 'MongoDB', icon: 'SiMongodb' },
@@ -41,7 +41,7 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    label: 'AI & LLM',
+    label: { en: 'AI & LLM', es: 'IA y LLM' },
     items: [
       { name: 'Claude', icon: 'SiAnthropic' },
       { name: 'OpenAI', icon: 'SiOpenai' },
@@ -51,7 +51,17 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    label: 'Tools',
+    label: { en: 'Automation & CMS', es: 'Automatización y CMS' },
+    items: [
+      { name: 'n8n', icon: '' },
+      { name: 'WordPress', icon: 'SiWordpress' },
+      { name: 'WooCommerce', icon: 'SiWoocommerce' },
+      { name: 'Shopify', icon: 'SiShopify' },
+      { name: 'Wix', icon: 'SiWix' },
+    ],
+  },
+  {
+    label: { en: 'Tools', es: 'Herramientas' },
     items: [
       { name: 'Git', icon: 'SiGit' },
       { name: 'GitHub', icon: 'SiGithub' },

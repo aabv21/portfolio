@@ -16,36 +16,43 @@ const inter = Inter({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://andres-buelvas.dev'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: 'Andrés Buelvas — Full Stack Engineer',
-  description:
-    'Portfolio of Andrés Buelvas, Full Stack Engineer specializing in fintech, distributed systems, AI-powered pipelines and microservices architecture. 8+ years of experience.',
-  keywords: ['Full Stack', 'Engineer', 'Fintech', 'Node.js', 'React', 'TypeScript'],
-  authors: [{ name: 'Andrés Buelvas' }],
-  openGraph: {
-    title: 'Andrés Buelvas — Full Stack Engineer',
-    description: 'Full Stack Engineer with 8+ years building fintech products, distributed systems, AI-powered pipelines and microservices architecture.',
-    url: SITE_URL,
-    siteName: 'Andrés Buelvas',
-    type: 'website',
+const META = {
+  en: {
+    title: 'Andrés Buelvas | Freelance Full Stack Developer',
+    description:
+      'Freelance full stack developer with 7+ years of experience. API integrations, n8n automation, AI features, and Shopify and WordPress development.',
     locale: 'en_US',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Andrés Buelvas — Full Stack Engineer',
-    description: 'Full Stack Engineer with 8+ years building fintech products, distributed systems, AI-powered pipelines and microservices architecture.',
+  es: {
+    title: 'Andrés Buelvas | Desarrollador Full Stack Freelance',
+    description:
+      'Desarrollador full stack freelance con más de 7 años de experiencia. Integraciones de APIs, automatización con n8n, funcionalidades con IA y desarrollo en Shopify y WordPress.',
+    locale: 'es_ES',
   },
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = (await cookies()).get('lang')?.value === 'es' ? 'es' : 'en'
+  const { title, description, locale } = META[lang]
+  return {
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    keywords: ['Freelance', 'Full Stack Developer', 'API integrations', 'n8n', 'Automation', 'AI', 'Shopify', 'WordPress', 'Node.js', 'Python', 'Next.js'],
+    authors: [{ name: 'Andrés Buelvas' }],
+    openGraph: { title, description, url: SITE_URL, siteName: 'Andrés Buelvas', type: 'website', locale },
+    twitter: { card: 'summary_large_image', title, description },
+  }
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Andrés Buelvas',
-  jobTitle: 'Full Stack Engineer',
+  jobTitle: 'Freelance Full Stack Developer',
   url: 'https://andres-buelvas.dev',
   sameAs: [
-    'https://linkedin.com/in/aabv211996/',
+    'https://www.linkedin.com/in/aabv211996/',
     'https://github.com/aabv21',
   ],
 }

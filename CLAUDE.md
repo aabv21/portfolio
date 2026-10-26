@@ -14,7 +14,7 @@ Next.js 15 App Router portfolio for Andrés Buelvas. TypeScript strict mode. Tai
 ## Key Conventions
 - Path alias `@/*` → `src/*`
 - `cn()` from `src/lib/utils.ts` (clsx + twMerge)
-- `CAREER_START_YEAR = 2018` in `src/lib/utils.ts`
+- Years of experience is the `about.yearsValue` string in the locales ("7+"), keep it in sync with metadata, OG image and chat prompt
 - No AWS icon in react-icons/si — use empty string and fall back to text badge
 - `Mutable<T>` helper in `es.ts` makes locale types mutable for `en.ts` to satisfy
 - All client components at the leaf level — server components for layouts and pages when possible

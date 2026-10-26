@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Andrés Buelvas — Full Stack Engineer'
+export const alt = 'Andrés Buelvas | Freelance Full Stack Developer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -129,7 +129,7 @@ export default function Image() {
             marginBottom: 24,
           }}
         >
-          Full Stack Engineer
+          Full Stack Developer · Integrations, Automation & AI
         </div>
 
         {/* Description */}
@@ -142,8 +142,7 @@ export default function Image() {
             maxWidth: 680,
           }}
         >
-          8+ years building fintech platforms, distributed systems and AI-powered pipelines.
-          Node.js · React · TypeScript · Python · AWS
+          7+ years of experience. API integrations, n8n automation, AI features, Shopify and WordPress.
         </div>
       </div>
     ),

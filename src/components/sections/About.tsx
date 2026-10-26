@@ -2,7 +2,7 @@
 
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
-import { cn, CAREER_START_YEAR } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { SectionHeading } from '@/components/ui/section-heading'
 
 const EDUCATION = [
@@ -22,8 +22,6 @@ export function About() {
   const { t, lang } = useLang()
   const { isDark } = useTheme()
 
-  const yearsOfExperience = new Date().getFullYear() - CAREER_START_YEAR
-
   return (
     <section id="sobre-mi" className="section-bg relative overflow-hidden py-24">
       <div
@@ -40,7 +38,7 @@ export function About() {
           <div className="flex flex-col gap-6">
             <div className="inline-flex items-baseline gap-3">
               <span className="text-[3.5rem] font-extrabold text-emerald leading-none">
-                +{yearsOfExperience}
+                {t.about.yearsValue}
               </span>
               <span className="text-[1rem] text-slate-400">{t.about.yearsLabel}</span>
             </div>
