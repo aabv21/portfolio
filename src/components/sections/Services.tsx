@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import Link from 'next/link'
 import { Plug, Workflow, Sparkles, Layers, ShoppingBag, GraduationCap } from 'lucide-react'
 import { useLang } from '@/context/LanguageContext'
@@ -19,19 +18,13 @@ const SERVICES = [
 export function Services() {
   const { t } = useLang()
 
-  // Next scrolls to the hash before this dynamic page mounts (e.g. /projects -> /#servicios), so retry once mounted
-  useEffect(() => {
-    const id = window.location.hash.slice(1)
-    if (id) document.getElementById(id)?.scrollIntoView()
-  }, [])
-
   return (
-    <section id="servicios" className="section-bg relative overflow-hidden py-24">
+    <section id={t.anchors.services} className="section-bg relative overflow-hidden py-24">
       <div className="geo-shape absolute top-[12%] left-[5%] w-20 h-20 opacity-[0.06] animate-float" style={{ animationDelay: '0.6s' }} />
       <div className="pulse-node absolute bottom-[12%] right-[8%]" style={{ animationDelay: '1s' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <SectionHeading label={t.services.sectionLabel} title={t.services.sectionTitle} id="servicios" />
+        <SectionHeading label={t.services.sectionLabel} title={t.services.sectionTitle} id={t.anchors.services} />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES.map(({ key, Icon }) => (

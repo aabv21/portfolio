@@ -107,12 +107,12 @@ export function Experience() {
   function handleNext() { goTo(current + 1) }
 
   return (
-    <section id="experiencia" className="section-bg relative overflow-hidden py-14 md:py-24">
+    <section id={t.anchors.experience} className="section-bg relative overflow-hidden py-14 md:py-24">
       <div className="geo-shape absolute bottom-[10%] right-[6%] w-20 h-20 opacity-[0.07] animate-float" style={{ animationDelay: '0.5s' }} />
       <div className="pulse-node absolute top-[15%] left-[10%]" style={{ animationDelay: '1s' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <SectionHeading label={t.experience.sectionLabel} title={t.experience.sectionTitle} id="experiencia" />
+        <SectionHeading label={t.experience.sectionLabel} title={t.experience.sectionTitle} id={t.anchors.experience} />
 
         <div onMouseEnter={pause} onMouseLeave={resume}>
           <CarouselProgressBar current={current} paused={paused} isDark={isDark} className="mb-6" />

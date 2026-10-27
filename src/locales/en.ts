@@ -9,6 +9,14 @@ export const en: Translations = {
     contact: 'Contact',
     chat: 'Chat with AI',
   },
+  anchors: {
+    hero: 'hero',
+    about: 'about',
+    services: 'services',
+    experience: 'experience',
+    skills: 'skills',
+    projects: 'projects',
+  },
   sideNav: {
     inicio: 'Home',
     sobreMi: 'About',

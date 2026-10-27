@@ -8,14 +8,6 @@ import { useTheme } from '@/context/ThemeContext'
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 
-const PAGE_LINKS = [
-  { labelKey: 'home' as const, href: '/' },
-  { labelKey: 'services' as const, href: '/#servicios' },
-  { labelKey: 'experience' as const, href: '/experience' },
-  { labelKey: 'projects' as const, href: '/projects' },
-  { labelKey: 'contact' as const, href: '/contact' },
-]
-
 interface NavbarProps {
   onChatOpen?: () => void
 }
@@ -25,6 +17,13 @@ export function Navbar({ onChatOpen }: NavbarProps) {
   const { isDark, toggleTheme } = useTheme()
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
+  const pageLinks = [
+    { labelKey: 'home' as const, href: '/' },
+    { labelKey: 'services' as const, href: `/#${t.anchors.services}` },
+    { labelKey: 'experience' as const, href: '/experience' },
+    { labelKey: 'projects' as const, href: '/projects' },
+    { labelKey: 'contact' as const, href: '/contact' },
+  ]
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -59,7 +58,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
 
       {/* Desktop nav */}
       <nav className="hidden lg:flex items-center gap-1">
-        {PAGE_LINKS.map(({ labelKey, href }) => {
+        {pageLinks.map(({ labelKey, href }) => {
           const active = pathname === href
           return (
             <Link
@@ -143,7 +142,7 @@ export function Navbar({ onChatOpen }: NavbarProps) {
 
             {/* Nav links */}
             <nav className="flex flex-col gap-1 px-3 pt-4">
-              {PAGE_LINKS.map(({ labelKey, href }) => (
+              {pageLinks.map(({ labelKey, href }) => (
                 <SheetClose asChild key={href}>
                   <Link
                     href={href}

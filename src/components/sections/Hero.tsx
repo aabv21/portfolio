@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useTypewriter } from '@/hooks/useTypewriter'
+import { useHashScroll } from '@/hooks/useHashScroll'
 import { useLang } from '@/context/LanguageContext'
 import { useChat } from '@/context/ChatContext'
 import { useTheme } from '@/context/ThemeContext'
@@ -13,6 +14,7 @@ export function Hero() {
   const { openChat } = useChat()
   const { isDark } = useTheme()
   const typewriterText = useTypewriter(t.hero.typewriterQuestions)
+  useHashScroll()
 
   return (
     <section
@@ -70,7 +72,7 @@ export function Hero() {
         {/* CTA buttons */}
         <div className="flex items-center justify-center gap-3 flex-wrap mb-10">
           <Button asChild size="lg" variant="emerald" className="bg-transparent hover:bg-emerald-subtle">
-            <Link href="#proyectos">{t.hero.cta}</Link>
+            <Link href={`#${t.anchors.projects}`}>{t.hero.cta}</Link>
           </Button>
           <Button
             asChild size="lg" variant="ghost"

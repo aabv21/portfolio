@@ -68,7 +68,7 @@ export function Skills() {
   const { t } = useLang()
 
   return (
-    <section id="skills" className="section-bg relative overflow-hidden py-24">
+    <section id={t.anchors.skills} className="section-bg relative overflow-hidden py-24">
       <div
         className="geo-shape absolute top-[8%] left-[4%] w-28 h-28 opacity-[0.06] animate-float"
         style={{ animationDelay: '1.2s' }}
@@ -76,7 +76,7 @@ export function Skills() {
       <div className="pulse-node absolute bottom-[15%] right-[10%]" style={{ animationDelay: '0.4s' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <SectionHeading label={t.skills.sectionLabel} title={t.skills.sectionTitle} id="skills" />
+        <SectionHeading label={t.skills.sectionLabel} title={t.skills.sectionTitle} id={t.anchors.skills} />
 
         <div className="grid sm:grid-cols-2 gap-5">
           {skills.map((category) => (
