@@ -16,6 +16,7 @@ Next.js 15 App Router portfolio for Andrés Buelvas. TypeScript strict mode. Tai
 - `cn()` from `src/lib/utils.ts` (clsx + twMerge)
 - "7+" years is hardcoded: locales (`yearsValue`, `bio`), root and experience metadata, OG image, chat prompt. Update together
 - Icons missing from react-icons/si (AWS, n8n, Langfuse, MCP): use `icon: ''` and the UI falls back to a text badge
+- Section anchors come from `t.anchors` (EN `#services`, ES `#servicios`, ...); `useHashScroll` also resolves the other language's anchor
 - `Mutable<T>` helper in `es.ts` makes locale types mutable for `en.ts` to satisfy
 - All client components at the leaf level — server components for layouts and pages when possible
 - `AppShell` (`src/components/layout/AppShell.tsx`) owns chatOpen state and renders Navbar/SideNav/Footer/ChatModal

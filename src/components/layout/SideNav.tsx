@@ -1,27 +1,28 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { useTheme } from '@/context/ThemeContext'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { cn } from '@/lib/utils'
 
-const SECTION_IDS = ['hero', 'sobre-mi', 'servicios', 'experiencia', 'skills', 'proyectos']
+const SECTIONS = ['hero', 'about', 'services', 'experience', 'skills', 'projects'] as const
 
 export function SideNav() {
   const { t } = useLang()
   const { isDark } = useTheme()
-  const activeId = useScrollSpy(SECTION_IDS)
+  const sectionIds = useMemo(() => SECTIONS.map((key) => t.anchors[key]), [t.anchors])
+  const activeId = useScrollSpy(sectionIds)
   const [footerVisible, setFooterVisible] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
-  const labels: Record<string, string> = {
+  const labels: Record<(typeof SECTIONS)[number], string> = {
     hero: t.sideNav.inicio,
-    'sobre-mi': t.sideNav.sobreMi,
-    servicios: t.sideNav.servicios,
-    experiencia: t.sideNav.experiencia,
+    about: t.sideNav.sobreMi,
+    services: t.sideNav.servicios,
+    experience: t.sideNav.experiencia,
     skills: t.sideNav.skills,
-    proyectos: t.sideNav.proyectos,
+    projects: t.sideNav.proyectos,
   }
 
   useEffect(() => {
@@ -49,14 +50,15 @@ export function SideNav() {
       )}
       aria-label="Section navigation"
     >
-      {SECTION_IDS.map((id, i) => {
+      {SECTIONS.map((key, i) => {
+        const id = sectionIds[i]
         const isActive = activeId === id
         return (
           <div key={id} className="flex flex-col items-end">
             <button
               onClick={() => scrollTo(id)}
               className="flex items-center gap-2 py-1 group"
-              aria-label={labels[id]}
+              aria-label={labels[key]}
             >
               <span
                 className={cn(
@@ -68,7 +70,7 @@ export function SideNav() {
                         isDark ? 'text-slate-300 border-white/[0.08] bg-[rgba(10,22,40,0.5)]' : 'text-slate-600 border-black/[0.06] bg-white/60'),
                 )}
               >
-                {labels[id]}
+                {labels[key]}
               </span>
               <span
                 className={cn(
@@ -80,7 +82,7 @@ export function SideNav() {
                 )}
               />
             </button>
-            {i < SECTION_IDS.length - 1 && (
+            {i < SECTIONS.length - 1 && (
               <div className="w-px h-4 ml-auto mr-[4.5px] bg-gradient-to-b from-emerald/20 to-emerald/05" />
             )}
           </div>

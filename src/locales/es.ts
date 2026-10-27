@@ -7,6 +7,14 @@ export const es = {
     contact: 'Contacto',
     chat: 'Chat con IA',
   },
+  anchors: {
+    hero: 'hero',
+    about: 'sobre-mi',
+    services: 'servicios',
+    experience: 'experiencia',
+    skills: 'skills',
+    projects: 'proyectos',
+  },
   sideNav: {
     inicio: 'Inicio',
     sobreMi: 'Sobre mí',

@@ -23,7 +23,7 @@ export function About() {
   const { isDark } = useTheme()
 
   return (
-    <section id="sobre-mi" className="section-bg relative overflow-hidden py-24">
+    <section id={t.anchors.about} className="section-bg relative overflow-hidden py-24">
       <div
         className="geo-shape absolute top-[10%] right-[5%] w-20 h-20 opacity-[0.07] animate-float"
         style={{ animationDelay: '1s' }}
@@ -31,7 +31,7 @@ export function About() {
       <div className="pulse-node absolute bottom-[20%] left-[8%]" style={{ animationDelay: '0.8s' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <SectionHeading label={t.about.sectionLabel} title={t.about.sectionTitle} id="sobre-mi" />
+        <SectionHeading label={t.about.sectionLabel} title={t.about.sectionTitle} id={t.anchors.about} />
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left — bio */}

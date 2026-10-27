@@ -143,12 +143,12 @@ export function FeaturedProjects() {
   function handleNext() { goTo(current + 1) }
 
   return (
-    <section id="proyectos" className="section-bg relative overflow-hidden py-14 md:py-24">
+    <section id={t.anchors.projects} className="section-bg relative overflow-hidden py-14 md:py-24">
       <div className="geo-shape absolute top-[12%] right-[7%] w-24 h-24 opacity-[0.07] animate-float" style={{ animationDelay: '0.3s' }} />
       <div className="pulse-node absolute bottom-[18%] left-[6%]" style={{ animationDelay: '1.2s' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <SectionHeading label={t.projects.sectionLabel} title={t.projects.sectionTitle} id="proyectos" />
+        <SectionHeading label={t.projects.sectionLabel} title={t.projects.sectionTitle} id={t.anchors.projects} />
 
         <div onMouseEnter={pause} onMouseLeave={resume}>
           <CarouselProgressBar current={current} paused={paused} isDark={isDark} className="mb-6" />
