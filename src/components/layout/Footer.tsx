@@ -73,7 +73,7 @@ export function Footer() {
   const hoverText = 'hover:text-emerald'
   const emailIcon = useCopyToClipboard('andres.buelvas.2102@gmail.com')
   const emailText = useCopyToClipboard('andres.buelvas.2102@gmail.com')
-  const linkedin = useCopyToClipboard('https://www.linkedin.com/in/aabv211996/')
+  const linkedin = useCopyToClipboard('linkedin.com/in/aabv211996')
 
   return (
     <footer
@@ -99,9 +99,6 @@ export function Footer() {
             <div className="flex gap-2">
               {SOCIAL_LINKS.map(({ label, href, icon, download }) => {
                 const isMail = href.startsWith('mailto:')
-                const resolvedHref = label === 'CV'
-                  ? (lang === 'es' ? '/andres-buelvas-cv-es.pdf' : '/andres-buelvas-cv.pdf')
-                  : href
                 if (isMail) {
                   return (
                     <button
@@ -125,7 +122,7 @@ export function Footer() {
                 return (
                   <a
                     key={label}
-                    href={resolvedHref}
+                    href={label === 'CV' && lang === 'es' ? '/andres-buelvas-cv-es.pdf' : href}
                     download={download ? true : undefined}
                     target="_blank"
                     rel="noopener noreferrer"

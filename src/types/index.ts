@@ -1,4 +1,3 @@
-// src/types/index.ts
 import type React from 'react'
 
 export type Lang = 'es' | 'en'

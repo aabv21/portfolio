@@ -32,12 +32,11 @@ function SkillBadge({ item }: { item: SkillItem }) {
 function CategoryBlock({
   category,
   tSkills,
-  lang,
 }: {
   category: SkillCategory
   tSkills: { showMore: string; showLess: string }
-  lang: 'en' | 'es'
 }) {
+  const { lang } = useLang()
   const [expanded, setExpanded] = useState(false)
   const hasMore = category.items.length > VISIBLE_DEFAULT
   const visible = expanded ? category.items : category.items.slice(0, VISIBLE_DEFAULT)
@@ -66,7 +65,7 @@ function CategoryBlock({
 }
 
 export function Skills() {
-  const { t, lang } = useLang()
+  const { t } = useLang()
 
   return (
     <section id="skills" className="section-bg relative overflow-hidden py-24">
@@ -81,7 +80,7 @@ export function Skills() {
 
         <div className="grid sm:grid-cols-2 gap-5">
           {skills.map((category) => (
-            <CategoryBlock key={category.label.en} category={category} tSkills={t.skills} lang={lang} />
+            <CategoryBlock key={category.label.en} category={category} tSkills={t.skills} />
           ))}
         </div>
       </div>

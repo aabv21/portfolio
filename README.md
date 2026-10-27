@@ -18,7 +18,7 @@
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js 15 (App Router) · React 19 · TypeScript 5 |
+| Framework | Next.js 15 (App Router) · React 19 · TypeScript 6 |
 | Styling | Tailwind CSS v3 · custom design tokens · CSS variables |
 | UI Components | shadcn/ui · custom carousel · modals · progress bar |
 | AI | Anthropic SDK — Claude Haiku via `/api/chat` |
@@ -62,7 +62,7 @@ src/
   components/
     layout/         # AppShell, Navbar, SideNav, Footer
     modals/         # ChatModal
-    sections/       # Hero, Experience, Skills, FeaturedProjects
+    sections/       # Hero, About, Services, Experience, Skills, FeaturedProjects
     ui/             # shadcn/ui + carousel-dots, carousel-progress-bar, experience-modal
   context/          # LanguageContext, ThemeContext, ChatContext
   data/             # experience.ts, projects.ts, skills.ts
@@ -113,5 +113,5 @@ ANTHROPIC_API_KEY=your_api_key_here
 ---
 
 <div align="center">
-  <sub>Built by <a href="https://github.com/aabv21">Andrés Buelvas</a> · Full Stack Engineer</sub>
+  <sub>Built by <a href="https://github.com/aabv21">Andrés Buelvas</a> · Freelance Full Stack Developer</sub>
 </div>
