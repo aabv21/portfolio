@@ -28,7 +28,7 @@ export interface SkillItem {
 }
 
 export interface SkillCategory {
-  label: string
+  label: { en: string; es: string }
   items: SkillItem[]
 }
 
@@ -43,6 +43,7 @@ export interface Project {
   image?: string
   challenge?: { en: string; es: string }
   results?: { en: string; es: string }[]
+  highlight?: { en: string; es: string }
   gallery?: string[]
   role?: { en: string; es: string }
   period?: string

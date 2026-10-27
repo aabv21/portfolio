@@ -1,6 +1,7 @@
 export const es = {
   nav: {
     home: 'Inicio',
+    services: 'Servicios',
     projects: 'Proyectos',
     experience: 'Experiencia',
     contact: 'Contacto',
@@ -9,6 +10,7 @@ export const es = {
   sideNav: {
     inicio: 'Inicio',
     sobreMi: 'Sobre mí',
+    servicios: 'Servicios',
     experiencia: 'Experiencia',
     skills: 'Skills',
     proyectos: 'Proyectos',
@@ -16,7 +18,7 @@ export const es = {
   hero: {
     badge: 'Disponible para proyectos freelance',
     title: 'Andrés Buelvas',
-    subtitle: 'Full Stack Engineer',
+    subtitle: 'Desarrollador Full Stack · Integraciones, Automatización e IA',
     cta: 'Ver proyectos',
     cv: 'Descargar CV',
     searchPlaceholder: 'Pregunta sobre mi experiencia...',
@@ -31,11 +33,43 @@ export const es = {
     sectionLabel: 'Quién soy',
     sectionTitle: 'Sobre mí',
     yearsLabel: 'años de experiencia',
-    yearsValue: '+8',
-    bio: 'Ingeniero en Computación con más de 8 años diseñando sistemas backend escalables, plataformas fintech y pipelines impulsados por IA. Especializado en microservicios, arquitecturas orientadas a eventos e integración de LLMs.',
+    yearsValue: '7+',
+    bio: 'Ingeniero en Computación con más de 7 años diseñando sistemas backend escalables, plataformas fintech y pipelines impulsados por IA. Especializado en microservicios, arquitecturas orientadas a eventos e integración de LLMs.',
     availability: 'Disponible para proyectos freelance',
     cvBtn: 'Descargar CV',
     education: 'Educación',
+  },
+  services: {
+    sectionLabel: 'Qué hago',
+    sectionTitle: 'Servicios',
+    items: {
+      api: {
+        title: 'Integraciones de APIs',
+        description: 'Conecto tu app, tienda o sitio web con las herramientas que usa tu negocio: Stripe, Plaid, CRMs, ERPs, pasarelas de pago o cualquier API REST o SOAP.',
+      },
+      automation: {
+        title: 'Automatizaciones con n8n',
+        description: 'Automatizo tareas repetitivas como seguimiento de leads, reportes, notificaciones y procesamiento de facturas, para que tu equipo ahorre horas cada semana.',
+      },
+      ai: {
+        title: 'Funcionalidades con IA',
+        description: 'Chatbots, extracción de datos de PDFs e imágenes, clasificación de documentos y ayuda para elegir el modelo adecuado sin gastar de más.',
+      },
+      fullstack: {
+        title: 'Apps full stack',
+        description: 'Desde una funcionalidad puntual hasta un MVP completo, con backends en Python y Node.js y frontends en React o Next.js.',
+      },
+      cms: {
+        title: 'Shopify y WordPress',
+        description: 'Funcionalidades a medida, corrección de temas y plugins, e integraciones con tus otras herramientas.',
+      },
+      mentoring: {
+        title: 'Mentoría',
+        description: 'Mentoría uno a uno para desarrolladores junior, en español o inglés: revisión de código, arquitectura y construcción de proyectos reales juntos.',
+      },
+    },
+    cta: 'Cuéntame qué necesitas y te respondo con un plan sencillo y un precio fijo',
+    ctaButton: 'Contáctame',
   },
   experience: {
     sectionLabel: 'Mi trayectoria',
@@ -77,7 +111,7 @@ export const es = {
     disclaimer: 'Las respuestas son generadas por IA · No compartir info sensible',
     start: 'Inicio de conversación',
     greeting:
-      '¡Hola! Soy el asistente de Andrés Buelvas. Puedo contarte sobre su experiencia, proyectos, habilidades o disponibilidad. ¿En qué te puedo ayudar?',
+      '¡Hola! Soy el asistente de Andrés Buelvas. Puedo contarte sobre su experiencia, proyectos, servicios o disponibilidad. ¿En qué te puedo ayudar?',
     chips: [
       '¿Qué tecnologías domina?',
       '¿Experiencia en fintech?',

@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact — Andrés Buelvas',
-  description: 'Get in touch with Andrés Buelvas, Full Stack Engineer available for remote full-time or part-time opportunities.',
+  description: 'Get in touch with Andrés Buelvas, freelance full stack developer. Tell me what you need and I will reply with a simple plan and a fixed price.',
   openGraph: {
     title: 'Contact — Andrés Buelvas',
-    description: 'Get in touch for remote Full Stack engineering opportunities.',
+    description: 'Freelance full stack developer: API integrations, n8n automation, AI, Shopify and WordPress.',
     url: '/contact',
   },
   alternates: { canonical: '/contact' },

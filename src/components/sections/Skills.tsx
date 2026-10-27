@@ -32,9 +32,11 @@ function SkillBadge({ item }: { item: SkillItem }) {
 function CategoryBlock({
   category,
   tSkills,
+  lang,
 }: {
   category: SkillCategory
   tSkills: { showMore: string; showLess: string }
+  lang: 'en' | 'es'
 }) {
   const [expanded, setExpanded] = useState(false)
   const hasMore = category.items.length > VISIBLE_DEFAULT
@@ -44,7 +46,7 @@ function CategoryBlock({
   return (
     <div className="glass-card p-5">
       <h3 className="text-[0.72rem] font-semibold text-emerald uppercase tracking-widest mb-4">
-        {category.label}
+        {category.label[lang]}
       </h3>
       <div className="flex flex-wrap gap-2">
         {visible.map((item) => (
@@ -64,7 +66,7 @@ function CategoryBlock({
 }
 
 export function Skills() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
 
   return (
     <section id="skills" className="section-bg relative overflow-hidden py-24">
@@ -79,7 +81,7 @@ export function Skills() {
 
         <div className="grid sm:grid-cols-2 gap-5">
           {skills.map((category) => (
-            <CategoryBlock key={category.label} category={category} tSkills={t.skills} />
+            <CategoryBlock key={category.label.en} category={category} tSkills={t.skills} lang={lang} />
           ))}
         </div>
       </div>

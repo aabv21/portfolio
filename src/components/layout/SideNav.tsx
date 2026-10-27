@@ -6,7 +6,7 @@ import { useTheme } from '@/context/ThemeContext'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { cn } from '@/lib/utils'
 
-const SECTION_IDS = ['hero', 'sobre-mi', 'experiencia', 'skills', 'proyectos']
+const SECTION_IDS = ['hero', 'sobre-mi', 'servicios', 'experiencia', 'skills', 'proyectos']
 
 export function SideNav() {
   const { t } = useLang()
@@ -18,6 +18,7 @@ export function SideNav() {
   const labels: Record<string, string> = {
     hero: t.sideNav.inicio,
     'sobre-mi': t.sideNav.sobreMi,
+    servicios: t.sideNav.servicios,
     experiencia: t.sideNav.experiencia,
     skills: t.sideNav.skills,
     proyectos: t.sideNav.proyectos,

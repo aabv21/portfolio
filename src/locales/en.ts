@@ -3,6 +3,7 @@ import type { Translations } from './es'
 export const en: Translations = {
   nav: {
     home: 'Home',
+    services: 'Services',
     projects: 'Projects',
     experience: 'Experience',
     contact: 'Contact',
@@ -11,6 +12,7 @@ export const en: Translations = {
   sideNav: {
     inicio: 'Home',
     sobreMi: 'About',
+    servicios: 'Services',
     experiencia: 'Experience',
     skills: 'Skills',
     proyectos: 'Projects',
@@ -18,7 +20,7 @@ export const en: Translations = {
   hero: {
     badge: 'Available for freelance projects',
     title: 'Andrés Buelvas',
-    subtitle: 'Full Stack Engineer',
+    subtitle: 'Full Stack Developer · Integrations, Automation & AI',
     cta: 'View projects',
     cv: 'Download CV',
     searchPlaceholder: 'Ask about my experience...',
@@ -33,11 +35,43 @@ export const en: Translations = {
     sectionLabel: 'Who I am',
     sectionTitle: 'About me',
     yearsLabel: 'years of experience',
-    yearsValue: '+8',
-    bio: 'Computer Engineer with 8+ years building scalable backend systems, fintech platforms and AI-powered pipelines. Specialized in microservices, event-driven architectures and LLM integration.',
+    yearsValue: '7+',
+    bio: 'Computer Engineer with 7+ years building scalable backend systems, fintech platforms and AI-powered pipelines. Specialized in microservices, event-driven architectures and LLM integration.',
     availability: 'Available for freelance projects',
     cvBtn: 'Download CV',
     education: 'Education',
+  },
+  services: {
+    sectionLabel: 'What I do',
+    sectionTitle: 'Services',
+    items: {
+      api: {
+        title: 'API integrations',
+        description: 'I connect your app, store or website with the tools your business uses: Stripe, Plaid, CRMs, ERPs, payment gateways or any REST or SOAP API.',
+      },
+      automation: {
+        title: 'n8n automations',
+        description: 'I automate repetitive work like lead follow ups, reports, notifications and invoice processing, so your team saves hours every week.',
+      },
+      ai: {
+        title: 'AI features',
+        description: 'Chatbots, data extraction from PDFs and images, document classification, and help choosing the right model without overspending.',
+      },
+      fullstack: {
+        title: 'Full stack apps',
+        description: 'From a single feature to a complete MVP, with Python and Node.js backends and React or Next.js frontends.',
+      },
+      cms: {
+        title: 'Shopify & WordPress',
+        description: 'Custom features, theme and plugin fixes, and integrations with your other tools.',
+      },
+      mentoring: {
+        title: 'Mentoring',
+        description: 'One on one mentoring for junior developers, in English or Spanish: code reviews, architecture and building real projects together.',
+      },
+    },
+    cta: "Tell me what you need and I'll reply with a simple plan and a fixed price",
+    ctaButton: 'Contact me',
   },
   experience: {
     sectionLabel: 'My journey',
@@ -79,7 +113,7 @@ export const en: Translations = {
     disclaimer: 'Responses are AI-generated · Do not share sensitive info',
     start: 'Conversation start',
     greeting:
-      "Hi! I'm Andrés Buelvas's assistant. I can tell you about his experience, projects, skills or availability. How can I help you?",
+      "Hi! I'm Andrés Buelvas's assistant. I can tell you about his experience, projects, services or availability. How can I help you?",
     chips: [
       'What technologies does he know?',
       'Fintech experience?',

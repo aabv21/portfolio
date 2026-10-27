@@ -95,6 +95,9 @@ function ProjectCard({
             </span>
           )}
         </div>
+        {project.highlight && (
+          <p className="text-[0.78rem] font-semibold text-emerald leading-snug">{project.highlight[lang]}</p>
+        )}
         <p className="text-[0.82rem] text-slate-400 leading-relaxed flex-1">
           {project.description[lang]}
         </p>

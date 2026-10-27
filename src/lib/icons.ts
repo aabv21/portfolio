@@ -5,6 +5,7 @@ import {
   SiNestjs, SiNextdotjs, SiNodedotjs, SiOpenai, SiPostgresql, SiPrisma,
   SiPython, SiRabbitmq, SiReact, SiRedis, SiRedux, SiRemix, SiShadcnui,
   SiStripe, SiSupabase, SiTailwindcss, SiTypescript, SiVercel, SiXstate, SiZod,
+  SiWordpress, SiWoocommerce, SiShopify, SiWix,
 } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 
@@ -15,6 +16,7 @@ const SI_MAP: Record<string, IconType> = {
   SiNestjs, SiNextdotjs, SiNodedotjs, SiOpenai, SiPostgresql, SiPrisma,
   SiPython, SiRabbitmq, SiReact, SiRedis, SiRedux, SiRemix, SiShadcnui,
   SiStripe, SiSupabase, SiTailwindcss, SiTypescript, SiVercel, SiXstate, SiZod,
+  SiWordpress, SiWoocommerce, SiShopify, SiWix,
 }
 
 export function getIcon(name: string | undefined): IconType | null {

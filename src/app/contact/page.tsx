@@ -166,7 +166,7 @@ export default function ContactPage() {
                   }
                 />
                 <CopyRow
-                  value="linkedin.com/in/andres-buelvas"
+                  value="linkedin.com/in/aabv211996"
                   isDark={isDark}
                   lang={lang}
                   icon={
