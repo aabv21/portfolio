@@ -1,22 +1,29 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
-import { Plug, Workflow, Sparkles, Layers, ShoppingBag, GraduationCap, type LucideIcon } from 'lucide-react'
+import { Plug, Workflow, Sparkles, Layers, ShoppingBag, GraduationCap } from 'lucide-react'
 import { useLang } from '@/context/LanguageContext'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { Button } from '@/components/ui/button'
 
-const SERVICES: { key: 'api' | 'automation' | 'ai' | 'fullstack' | 'cms' | 'mentoring'; Icon: LucideIcon }[] = [
+const SERVICES = [
   { key: 'api', Icon: Plug },
   { key: 'automation', Icon: Workflow },
   { key: 'ai', Icon: Sparkles },
   { key: 'fullstack', Icon: Layers },
   { key: 'cms', Icon: ShoppingBag },
   { key: 'mentoring', Icon: GraduationCap },
-]
+] as const
 
 export function Services() {
   const { t } = useLang()
+
+  // Next scrolls to the hash before this dynamic page mounts (e.g. /projects -> /#servicios), so retry once mounted
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) document.getElementById(id)?.scrollIntoView()
+  }, [])
 
   return (
     <section id="servicios" className="section-bg relative overflow-hidden py-24">

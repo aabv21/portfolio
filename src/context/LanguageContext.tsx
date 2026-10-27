@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
 import { es } from '@/locales/es'
 import { en } from '@/locales/en'
 import type { Lang, Translations } from '@/types'
@@ -17,15 +18,15 @@ const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 export function LanguageProvider({ children, initialLang = 'en' }: { children: ReactNode; initialLang?: Lang }) {
   const [lang, setLang] = useState<Lang>(initialLang)
+  const router = useRouter()
 
   const toggleLang = useCallback(() => {
-    setLang((prev) => {
-      const next: Lang = prev === 'es' ? 'en' : 'es'
-      document.cookie = `lang=${next};path=/;max-age=31536000;SameSite=Lax;Secure`
-      document.documentElement.lang = next
-      return next
-    })
-  }, [])
+    const next: Lang = lang === 'es' ? 'en' : 'es'
+    document.cookie = `lang=${next};path=/;max-age=31536000;SameSite=Lax;Secure`
+    document.documentElement.lang = next
+    setLang(next)
+    router.refresh() // re-render server metadata (<title>, description) in the new language
+  }, [lang, router])
 
   return (
     <LanguageContext.Provider value={{ lang, t: lang === 'es' ? es : en, toggleLang }}>

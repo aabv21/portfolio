@@ -1,5 +1,5 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  // no-unused-vars crashes with TypeScript 6 in the typescript-eslint bundled by eslint-config-next 15; re-enable after upgrading
+  // Crashes on the Mutable<T> mapped type in es.ts (@typescript-eslint plugin 8 vs parser 6 mismatch); re-enable once aligned
   "rules": { "@typescript-eslint/no-unused-vars": "off" }
 }

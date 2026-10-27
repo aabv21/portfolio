@@ -15,6 +15,7 @@ const inter = Inter({
 })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://andres-buelvas.dev'
+const METADATA_BASE = new URL(SITE_URL)
 
 const META = {
   en: {
@@ -35,13 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const lang = (await cookies()).get('lang')?.value === 'es' ? 'es' : 'en'
   const { title, description, locale } = META[lang]
   return {
-    metadataBase: new URL(SITE_URL),
+    metadataBase: METADATA_BASE,
     title,
     description,
     keywords: ['Freelance', 'Full Stack Developer', 'API integrations', 'n8n', 'Automation', 'AI', 'Shopify', 'WordPress', 'Node.js', 'Python', 'Next.js'],
     authors: [{ name: 'Andrés Buelvas' }],
     openGraph: { title, description, url: SITE_URL, siteName: 'Andrés Buelvas', type: 'website', locale },
-    twitter: { card: 'summary_large_image', title, description },
+    twitter: { card: 'summary_large_image' },
   }
 }
 
